@@ -39,9 +39,9 @@ need their corresponding development libraries; Xft/Fontconfig also use
 Try some examples:
 
 ```sh
-v -path '..|@vlib|@vmodules' run examples/hello.v
-v -path '..|@vlib|@vmodules' run examples/events.v
-v -path '..|@vlib|@vmodules' run examples/xft_text.v
+v run examples/hello.v
+v run examples/events.v
+v run examples/xft_text.v
 ```
 
 See the [example gallery](examples/README.md) for runnable demos and screenshots.
@@ -62,7 +62,7 @@ v run tools/generate.v
 v fmt -w types.c.v functions.c.v constants.v methods.v
 v -check -shared .
 v test bindings_test.v
-v -path '..|@vlib|@vmodules' -o /tmp/vx11-integration tests/integration.v
+v -o /tmp/vx11-integration tests/integration.v
 xvfb-run -a /tmp/vx11-integration
 ```
 

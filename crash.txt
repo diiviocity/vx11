@@ -1,0 +1,83 @@
+warning: implicit tcc could not be used for this build (tcc: error: unresolved reference to 'XAllocNamedColor'), regenerating it with /usr/bin/cc
+C compiler output from the default V compiler:
+/usr/bin/ld: cannot find -lX11: No such file or directory
+/usr/bin/ld: have you installed the static version of the X11 library ?
+collect2: error: ld returned 1 exit status
+V compilation failed (c_compilation_error); retrying with `/home/diviocity/.cache/v/v1-fallback/0.5.2/v`.
+/home/diviocity/.cache/v/v1-fallback/0.5.2/vlib/dlmalloc/dlmalloc.v:398:27: notice: unused parameter: `treemap`
+  396 | }
+  397 | 
+  398 | fn (tree &TreeChunk) size(treemap u32) usize {
+      |                           ~~~~~~~
+  399 |     return tree.chunk.head & ~flag_bits
+  400 | }
+/home/diviocity/.cache/v/v1-fallback/0.5.2/vlib/dlmalloc/dlmalloc_sys_nix.c.v:72:28: notice: unused parameter: `ptr`
+   70 | }
+   71 | 
+   72 | fn system_remap(_ voidptr, ptr voidptr, oldsize usize, newsize usize, can_move bool) voidptr {
+      |                            ~~~
+   73 |     return unsafe { nil }
+   74 | }
+/home/diviocity/.cache/v/v1-fallback/0.5.2/vlib/dlmalloc/dlmalloc_sys_nix.c.v:72:41: notice: unused parameter: `oldsize`
+   70 | }
+   71 | 
+   72 | fn system_remap(_ voidptr, ptr voidptr, oldsize usize, newsize usize, can_move bool) voidptr {
+      |                                         ~~~~~~~
+   73 |     return unsafe { nil }
+   74 | }
+/home/diviocity/.cache/v/v1-fallback/0.5.2/vlib/dlmalloc/dlmalloc_sys_nix.c.v:72:56: notice: unused parameter: `newsize`
+   70 | }
+   71 | 
+   72 | fn system_remap(_ voidptr, ptr voidptr, oldsize usize, newsize usize, can_move bool) voidptr {
+      |                                                        ~~~~~~~
+   73 |     return unsafe { nil }
+   74 | }
+/home/diviocity/.cache/v/v1-fallback/0.5.2/vlib/dlmalloc/dlmalloc_sys_nix.c.v:72:71: notice: unused parameter: `can_move`
+   70 | }
+   71 | 
+   72 | fn system_remap(_ voidptr, ptr voidptr, oldsize usize, newsize usize, can_move bool) voidptr {
+      |                                                                       ~~~~~~~~
+   73 |     return unsafe { nil }
+   74 | }
+connection.v:61:5: error: infix expr: cannot use `int literal` (right expression) as `vx11.Atom`
+   59 |     if name.contains('\x00') { return error('atom name contains NUL') }
+   60 |     atom := intern_atom(c.raw()!, &char(name.str), 0)
+   61 |     if atom == 0 { return error('cannot intern atom "${name}"') }
+      |        ~~~~~~~~~
+   62 |     return atom
+   63 | }
+property.v:37:85: error: cannot use `int literal` as `vx11.Atom` in argument 7 to `get_window_property`
+   35 |     mut remaining := CULong(0)
+   36 |     mut data := unsafe { &u8(nil) }
+   37 |     status := get_window_property(w.display()!, w.id, property, 0, 4 * 1024 * 1024, 0, 0, &typ, &format, &count, &remaining, &data)
+      |                                                                                        ^
+   38 |     defer { if data != unsafe { nil } { free(data) } }
+   39 |     if status != 0 { return error('XGetWindowProperty failed: ${status}') }
+property.v:40:5: error: infix expr: cannot use `int literal` (right expression) as `vx11.Atom`
+   38 |     defer { if data != unsafe { nil } { free(data) } }
+   39 |     if status != 0 { return error('XGetWindowProperty failed: ${status}') }
+   40 |     if typ == 0 { return error('property does not exist') }
+      |        ~~~~~~~~
+   41 |     if remaining != 0 { return error('property exceeds 16 MiB convenience limit') }
+   42 |     mut bytes := []u8{}
+window.v:42:5: error: infix expr: cannot use `int literal` (right expression) as `vx11.Window`
+   40 |     screen := default_screen(d)
+   41 |     id := create_simple_window(d, root_window(d, screen), i32(options.x), i32(options.y), u32(options.width), u32(options.height), u32(options.border_width), options.border or { black_pixel(d, screen) }, options.background or { white_pixel(d, screen) })
+   42 |     if id == 0 { return error('cannot allocate window') }
+      |        ~~~~~~~
+   43 |     mut w := &WindowHandle{ id: id, connection: c }
+   44 |     w.set_title(options.title) or {
+examples/demo/canvas.v:38:7: error: infix expr: cannot use `int literal` (right expression) as `vx11.Pixmap`
+   36 |     d := c.connection.raw()!
+   37 |     if width <= 0 || height <= 0 { return }
+   38 |     if c.pixmap != 0 { vx11.free_pixmap(d, c.pixmap) }
+      |          ~~~~~~~~~~~
+   39 |     c.width = width
+   40 |     c.height = height
+examples/demo/canvas.v:208:7: error: infix expr: cannot use `int literal` (right expression) as `vx11.Pixmap`
+  206 | pub fn (c &Canvas) drawable() !vx11.Drawable {
+  207 |     c.connection.raw()!
+  208 |     if c.pixmap == 0 { return error('canvas has no backing pixmap') }
+      |          ~~~~~~~~~~~
+  209 |     return vx11.Drawable(c.pixmap)
+  210 | }

@@ -1,0 +1,4126 @@
+@[translated]
+module vx11
+
+struct C.Funcs {}
+
+struct C.XDisplay {}
+
+struct C.XPrivate {}
+
+struct C.XrmHashBucketRec {}
+
+struct Fsid_t {
+	__val [2]int
+}
+
+type __fsid_t = Fsid_t
+
+type Size_t = u32
+type U_int8_t = u8
+type U_int16_t = u16
+type U_int32_t = u32
+type U_int64_t = u64
+type Register_t = int
+type Ptrdiff_t = int
+type Wchar_t = int
+
+type XID = u32
+type Mask = u32
+type Atom = u32
+type VisualID = u32
+type Time = u32
+type Window = u32
+type Drawable = u32
+type Font = u32
+type Pixmap = u32
+type Cursor = u32
+type Colormap = u32
+type GContext = u32
+type KeySym = u32
+type KeyCode = u8
+
+fn C._Xmblen(str &char, len int) int
+
+pub fn xmblen(str &char, len int) int {
+	return C._Xmblen(str, len)
+}
+
+type XPointer = &char
+
+struct XExtData {
+	number       int
+	next         &XExtData
+	free_private fn (&XExtData) int
+	private_data XPointer
+}
+
+struct XExtCodes {
+	extension    int
+	major_opcode int
+	first_event  int
+	first_error  int
+}
+
+struct XPixmapFormatValues {
+	depth          int
+	bits_per_pixel int
+	scanline_pad   int
+}
+
+struct XGCValues {
+	function           int
+	plane_mask         u32
+	foreground         u32
+	background         u32
+	line_width         int
+	line_style         int
+	cap_style          int
+	join_style         int
+	fill_style         int
+	fill_rule          int
+	arc_mode           int
+	tile               Pixmap
+	stipple            Pixmap
+	ts_x_origin        int
+	ts_y_origin        int
+	font               Font
+	subwindow_mode     int
+	graphics_exposures int
+	clip_x_origin      int
+	clip_y_origin      int
+	clip_mask          Pixmap
+	dash_offset        int
+	dashes             i8
+}
+
+type GC = voidptr
+
+struct Visual {
+	ext_data     &XExtData
+	visualid     VisualID
+	class        int
+	red_mask     u32
+	green_mask   u32
+	blue_mask    u32
+	bits_per_rgb int
+	map_entries  int
+}
+
+struct Depth {
+	depth    int
+	nvisuals int
+	visuals  &Visual
+}
+
+struct Screen {
+	ext_data        &XExtData
+	display         &C.XDisplay
+	root            Window
+	width           int
+	height          int
+	mwidth          int
+	mheight         int
+	ndepths         int
+	depths          &Depth
+	root_depth      int
+	root_visual     &Visual
+	default_gc      GC
+	cmap            Colormap
+	white_pixel     u32
+	black_pixel     u32
+	max_maps        int
+	min_maps        int
+	backing_store   int
+	save_unders     int
+	root_input_mask int
+}
+
+struct ScreenFormat {
+	ext_data       &XExtData
+	depth          int
+	bits_per_pixel int
+	scanline_pad   int
+}
+
+struct XSetWindowAttributes {
+	background_pixmap     Pixmap
+	background_pixel      u32
+	border_pixmap         Pixmap
+	border_pixel          u32
+	bit_gravity           int
+	win_gravity           int
+	backing_store         int
+	backing_planes        u32
+	backing_pixel         u32
+	save_under            int
+	event_mask            int
+	do_not_propagate_mask int
+	override_redirect     int
+	colormap              Colormap
+	cursor                Cursor
+}
+
+struct XWindowAttributes {
+	x                     int
+	y                     int
+	width                 int
+	height                int
+	border_width          int
+	depth                 int
+	visual                &Visual
+	root                  Window
+	class                 int
+	bit_gravity           int
+	win_gravity           int
+	backing_store         int
+	backing_planes        u32
+	backing_pixel         u32
+	save_under            int
+	colormap              Colormap
+	map_installed         int
+	map_state             int
+	all_event_masks       int
+	your_event_mask       int
+	do_not_propagate_mask int
+	override_redirect     int
+	screen                &Screen
+}
+
+struct XHostAddress {
+	family  int
+	length  int
+	address &char
+}
+
+struct XServerInterpretedAddress {
+	typelength  int
+	valuelength int
+	type_       &char
+	value       &char
+}
+
+struct XImage {
+	width            int
+	height           int
+	xoffset          int
+	format           int
+	data             &char
+	byte_order       int
+	bitmap_unit      int
+	bitmap_bit_order int
+	bitmap_pad       int
+	depth            int
+	bytes_per_line   int
+	bits_per_pixel   int
+	red_mask         u32
+	green_mask       u32
+	blue_mask        u32
+	obdata           XPointer
+	f                C.Funcs
+}
+
+struct XWindowChanges {
+	x            int
+	y            int
+	width        int
+	height       int
+	border_width int
+	sibling      Window
+	stack_mode   int
+}
+
+struct XColor {
+	pixel u32
+	red   u16
+	green u16
+	blue  u16
+	flags i8
+	pad   i8
+}
+
+struct XSegment {
+	x1 i16
+	y1 i16
+	x2 i16
+	y2 i16
+}
+
+struct XPoint {
+	x i16
+	y i16
+}
+
+struct XRectangle {
+	x      i16
+	y      i16
+	width  u16
+	height u16
+}
+
+struct XArc {
+	x      i16
+	y      i16
+	width  u16
+	height u16
+	angle1 i16
+	angle2 i16
+}
+
+struct XKeyboardControl {
+	key_click_percent int
+	bell_percent      int
+	bell_pitch        int
+	bell_duration     int
+	led               int
+	led_mode          int
+	key               int
+	auto_repeat_mode  int
+}
+
+struct XKeyboardState {
+	key_click_percent  int
+	bell_percent       int
+	bell_pitch         u32
+	bell_duration      u32
+	led_mask           u32
+	global_auto_repeat int
+	auto_repeats       [32]i8
+}
+
+struct XTimeCoord {
+	time Time
+	x    i16
+	y    i16
+}
+
+struct XModifierKeymap {
+	max_keypermod int
+	modifiermap   &KeyCode
+}
+
+type Display = C.XDisplay
+
+struct XPrivDisplay {
+	ext_data            &XExtData
+	private1            &C.XPrivate
+	fd                  int
+	private2            int
+	proto_major_version int
+	proto_minor_version int
+	vendor              &char
+	private3            XID
+	private4            XID
+	private5            XID
+	private6            int
+	resource_alloc      fn (&C.XDisplay) XID
+	byte_order          int
+	bitmap_unit         int
+	bitmap_pad          int
+	bitmap_bit_order    int
+	nformats            int
+	pixmap_format       &ScreenFormat
+	private8            int
+	release             int
+	private9            &C.XPrivate
+	private10           &C.XPrivate
+	qlen                int
+	last_request_read   u32
+	request             u32
+	private11           XPointer
+	private12           XPointer
+	private13           XPointer
+	private14           XPointer
+	max_request_size    u32
+	db                  &C.XrmHashBucketRec
+	private15           fn (&C.XDisplay) int
+	display_name        &char
+	default_screen      int
+	nscreens            int
+	screens             &Screen
+	motion_buffer       u32
+	private16           u32
+	min_keycode         int
+	max_keycode         int
+	private17           XPointer
+	private18           XPointer
+	private19           int
+	xdefaults           &char
+}
+
+struct XKeyEvent {
+	type_       int
+	serial      u32
+	send_event  int
+	display     &Display
+	window      Window
+	root        Window
+	subwindow   Window
+	time        Time
+	x           int
+	y           int
+	x_root      int
+	y_root      int
+	state       u32
+	keycode     u32
+	same_screen int
+}
+
+type XKeyPressedEvent = XKeyEvent
+type XKeyReleasedEvent = XKeyEvent
+
+struct XButtonEvent {
+	type_       int
+	serial      u32
+	send_event  int
+	display     &Display
+	window      Window
+	root        Window
+	subwindow   Window
+	time        Time
+	x           int
+	y           int
+	x_root      int
+	y_root      int
+	state       u32
+	button      u32
+	same_screen int
+}
+
+type XButtonPressedEvent = XButtonEvent
+type XButtonReleasedEvent = XButtonEvent
+
+struct XMotionEvent {
+	type_       int
+	serial      u32
+	send_event  int
+	display     &Display
+	window      Window
+	root        Window
+	subwindow   Window
+	time        Time
+	x           int
+	y           int
+	x_root      int
+	y_root      int
+	state       u32
+	is_hint     i8
+	same_screen int
+}
+
+type XPointerMovedEvent = XMotionEvent
+
+struct XCrossingEvent {
+	type_       int
+	serial      u32
+	send_event  int
+	display     &Display
+	window      Window
+	root        Window
+	subwindow   Window
+	time        Time
+	x           int
+	y           int
+	x_root      int
+	y_root      int
+	mode        int
+	detail      int
+	same_screen int
+	focus       int
+	state       u32
+}
+
+type XEnterWindowEvent = XCrossingEvent
+type XLeaveWindowEvent = XCrossingEvent
+
+struct XFocusChangeEvent {
+	type_      int
+	serial     u32
+	send_event int
+	display    &Display
+	window     Window
+	mode       int
+	detail     int
+}
+
+type XFocusInEvent = XFocusChangeEvent
+type XFocusOutEvent = XFocusChangeEvent
+
+struct XKeymapEvent {
+	type_      int
+	serial     u32
+	send_event int
+	display    &Display
+	window     Window
+	key_vector [32]i8
+}
+
+struct XExposeEvent {
+	type_      int
+	serial     u32
+	send_event int
+	display    &Display
+	window     Window
+	x          int
+	y          int
+	width      int
+	height     int
+	count      int
+}
+
+struct XGraphicsExposeEvent {
+	type_      int
+	serial     u32
+	send_event int
+	display    &Display
+	drawable   Drawable
+	x          int
+	y          int
+	width      int
+	height     int
+	count      int
+	major_code int
+	minor_code int
+}
+
+struct XNoExposeEvent {
+	type_      int
+	serial     u32
+	send_event int
+	display    &Display
+	drawable   Drawable
+	major_code int
+	minor_code int
+}
+
+struct XVisibilityEvent {
+	type_      int
+	serial     u32
+	send_event int
+	display    &Display
+	window     Window
+	state      int
+}
+
+struct XCreateWindowEvent {
+	type_             int
+	serial            u32
+	send_event        int
+	display           &Display
+	parent            Window
+	window            Window
+	x                 int
+	y                 int
+	width             int
+	height            int
+	border_width      int
+	override_redirect int
+}
+
+struct XDestroyWindowEvent {
+	type_      int
+	serial     u32
+	send_event int
+	display    &Display
+	event      Window
+	window     Window
+}
+
+struct XUnmapEvent {
+	type_          int
+	serial         u32
+	send_event     int
+	display        &Display
+	event          Window
+	window         Window
+	from_configure int
+}
+
+struct XMapEvent {
+	type_             int
+	serial            u32
+	send_event        int
+	display           &Display
+	event             Window
+	window            Window
+	override_redirect int
+}
+
+struct XMapRequestEvent {
+	type_      int
+	serial     u32
+	send_event int
+	display    &Display
+	parent     Window
+	window     Window
+}
+
+struct XReparentEvent {
+	type_             int
+	serial            u32
+	send_event        int
+	display           &Display
+	event             Window
+	window            Window
+	parent            Window
+	x                 int
+	y                 int
+	override_redirect int
+}
+
+struct XConfigureEvent {
+	type_             int
+	serial            u32
+	send_event        int
+	display           &Display
+	event             Window
+	window            Window
+	x                 int
+	y                 int
+	width             int
+	height            int
+	border_width      int
+	above             Window
+	override_redirect int
+}
+
+struct XGravityEvent {
+	type_      int
+	serial     u32
+	send_event int
+	display    &Display
+	event      Window
+	window     Window
+	x          int
+	y          int
+}
+
+struct XResizeRequestEvent {
+	type_      int
+	serial     u32
+	send_event int
+	display    &Display
+	window     Window
+	width      int
+	height     int
+}
+
+struct XConfigureRequestEvent {
+	type_        int
+	serial       u32
+	send_event   int
+	display      &Display
+	parent       Window
+	window       Window
+	x            int
+	y            int
+	width        int
+	height       int
+	border_width int
+	above        Window
+	detail       int
+	value_mask   u32
+}
+
+struct XCirculateEvent {
+	type_      int
+	serial     u32
+	send_event int
+	display    &Display
+	event      Window
+	window     Window
+	place      int
+}
+
+struct XCirculateRequestEvent {
+	type_      int
+	serial     u32
+	send_event int
+	display    &Display
+	parent     Window
+	window     Window
+	place      int
+}
+
+struct XPropertyEvent {
+	type_      int
+	serial     u32
+	send_event int
+	display    &Display
+	window     Window
+	atom       Atom
+	time       Time
+	state      int
+}
+
+struct XSelectionClearEvent {
+	type_      int
+	serial     u32
+	send_event int
+	display    &Display
+	window     Window
+	selection  Atom
+	time       Time
+}
+
+struct XSelectionRequestEvent {
+	type_      int
+	serial     u32
+	send_event int
+	display    &Display
+	owner      Window
+	requestor  Window
+	selection  Atom
+	target     Atom
+	property   Atom
+	time       Time
+}
+
+struct XSelectionEvent {
+	type_      int
+	serial     u32
+	send_event int
+	display    &Display
+	requestor  Window
+	selection  Atom
+	target     Atom
+	property   Atom
+	time       Time
+}
+
+struct XColormapEvent {
+	type_      int
+	serial     u32
+	send_event int
+	display    &Display
+	window     Window
+	colormap   Colormap
+	new        int
+	state      int
+}
+
+struct XClientMessageEvent {
+	type_        int
+	serial       u32
+	send_event   int
+	display      &Display
+	window       Window
+	message_type Atom
+	format       int
+	data         union {
+		b [20]i8
+		s [10]i16
+		l [5]int
+	}
+}
+
+struct XMappingEvent {
+	type_         int
+	serial        u32
+	send_event    int
+	display       &Display
+	window        Window
+	request       int
+	first_keycode int
+	count         int
+}
+
+struct XErrorEvent {
+	type_        int
+	display      &Display
+	resourceid   XID
+	serial       u32
+	error_code   u8
+	request_code u8
+	minor_code   u8
+}
+
+struct XAnyEvent {
+	type_      int
+	serial     u32
+	send_event int
+	display    &Display
+	window     Window
+}
+
+struct XGenericEvent {
+	type_      int
+	serial     u32
+	send_event int
+	display    &Display
+	extension  int
+	evtype     int
+}
+
+struct XGenericEventCookie {
+	type_      int
+	serial     u32
+	send_event int
+	display    &Display
+	extension  int
+	evtype     int
+	cookie     u32
+	data       voidptr
+}
+
+union XEvent {
+	type_             int
+	xany              XAnyEvent
+	xkey              XKeyEvent
+	xbutton           XButtonEvent
+	xmotion           XMotionEvent
+	xcrossing         XCrossingEvent
+	xfocus            XFocusChangeEvent
+	xexpose           XExposeEvent
+	xgraphicsexpose   XGraphicsExposeEvent
+	xnoexpose         XNoExposeEvent
+	xvisibility       XVisibilityEvent
+	xcreatewindow     XCreateWindowEvent
+	xdestroywindow    XDestroyWindowEvent
+	xunmap            XUnmapEvent
+	xmap              XMapEvent
+	xmaprequest       XMapRequestEvent
+	xreparent         XReparentEvent
+	xconfigure        XConfigureEvent
+	xgravity          XGravityEvent
+	xresizerequest    XResizeRequestEvent
+	xconfigurerequest XConfigureRequestEvent
+	xcirculate        XCirculateEvent
+	xcirculaterequest XCirculateRequestEvent
+	xproperty         XPropertyEvent
+	xselectionclear   XSelectionClearEvent
+	xselectionrequest XSelectionRequestEvent
+	xselection        XSelectionEvent
+	xcolormap         XColormapEvent
+	xclient           XClientMessageEvent
+	xmapping          XMappingEvent
+	xerror            XErrorEvent
+	xkeymap           XKeymapEvent
+	xgeneric          XGenericEvent
+	xcookie           XGenericEventCookie
+	pad               [24]int
+}
+
+struct XCharStruct {
+	lbearing   i16
+	rbearing   i16
+	width      i16
+	ascent     i16
+	descent    i16
+	attributes u16
+}
+
+struct XFontProp {
+	name   Atom
+	card32 u32
+}
+
+struct XFontStruct {
+	ext_data          &XExtData
+	fid               Font
+	direction         u32
+	min_char_or_byte2 u32
+	max_char_or_byte2 u32
+	min_byte1         u32
+	max_byte1         u32
+	all_chars_exist   int
+	default_char      u32
+	n_properties      int
+	properties        &XFontProp
+	min_bounds        XCharStruct
+	max_bounds        XCharStruct
+	per_char          &XCharStruct
+	ascent            int
+	descent           int
+}
+
+struct XTextItem {
+	chars  &char
+	nchars int
+	delta  int
+	font   Font
+}
+
+struct XChar2b {
+	byte1 u8
+	byte2 u8
+}
+
+struct XTextItem16 {
+	chars  &XChar2b
+	nchars int
+	delta  int
+	font   Font
+}
+
+union XEDataObject {
+	display       &Display
+	gc            GC
+	visual        &Visual
+	screen        &Screen
+	pixmap_format &ScreenFormat
+	font          &XFontStruct
+}
+
+struct XFontSetExtents {
+	max_ink_extent     XRectangle
+	max_logical_extent XRectangle
+}
+
+type XOM = voidptr
+type XOC = voidptr
+type XFontSet = voidptr
+
+struct XmbTextItem {
+	chars    &char
+	nchars   int
+	delta    int
+	font_set XFontSet
+}
+
+struct XwcTextItem {
+	chars    &Wchar_t
+	nchars   int
+	delta    int
+	font_set XFontSet
+}
+
+struct XOMCharSetList {
+	charset_count int
+	charset_list  &&u8
+}
+
+enum XOrientation {
+	xom_orientation_ltr_ttb
+	xom_orientation_rtl_ttb
+	xom_orientation_ttb_ltr
+	xom_orientation_ttb_rtl
+	xom_orientation_context
+}
+
+struct XOMOrientation {
+	num_orientation int
+	orientation     &XOrientation
+}
+
+struct XOMFontInfo {
+	num_font         int
+	font_struct_list &&XFontStruct
+	font_name_list   &&u8
+}
+
+type XIM = voidptr
+type XIC = voidptr
+type XIMProc = fn (XIM, XPointer, XPointer)
+type XICProc = fn (XIC, XPointer, XPointer) int
+type XIDProc = fn (&Display, XPointer, XPointer)
+type XIMStyle = u32
+
+struct XIMStyles {
+	count_styles     u16
+	supported_styles &XIMStyle
+}
+
+type XVaNestedList = voidptr
+
+struct XIMCallback {
+	client_data XPointer
+	callback    XIMProc
+}
+
+struct XICCallback {
+	client_data XPointer
+	callback    XICProc
+}
+
+type XIMFeedback = u32
+
+struct XIMText {
+	length            u16
+	feedback          &XIMFeedback
+	encoding_is_wchar int
+	string_           struct {
+		multi_byte &char
+		wide_char &Wchar_t
+	}
+}
+
+type XIMPreeditState = u32
+
+struct XIMPreeditStateNotifyCallbackStruct {
+	state XIMPreeditState
+}
+
+type XIMResetState = u32
+type XIMStringConversionFeedback = u32
+
+struct XIMStringConversionText {
+	length            u16
+	feedback          &XIMStringConversionFeedback
+	encoding_is_wchar int
+	string_           union {
+		mbs &char
+		wcs &Wchar_t
+	}
+}
+
+type XIMStringConversionPosition = u16
+type XIMStringConversionType = u16
+type XIMStringConversionOperation = u16
+
+enum XIMCaretDirection {
+	xim_forward_char
+	xim_backward_char
+	xim_forward_word
+	xim_backward_word
+	xim_caret_up
+	xim_caret_down
+	xim_next_line
+	xim_previous_line
+	xim_line_start
+	xim_line_end
+	xim_absolute_position
+	xim_dont_change
+}
+
+struct XIMStringConversionCallbackStruct {
+	position  XIMStringConversionPosition
+	direction XIMCaretDirection
+	operation XIMStringConversionOperation
+	factor    u16
+	text      &XIMStringConversionText
+}
+
+struct XIMPreeditDrawCallbackStruct {
+	caret      int
+	chg_first  int
+	chg_length int
+	text       &XIMText
+}
+
+enum XIMCaretStyle {
+	xim_is_invisible
+	xim_is_primary
+	xim_is_secondary
+}
+
+struct XIMPreeditCaretCallbackStruct {
+	position  int
+	direction XIMCaretDirection
+	style     XIMCaretStyle
+}
+
+enum XIMStatusDataType {
+	xim_text_type
+	xim_bitmap_type
+}
+
+struct XIMStatusDrawCallbackStruct {
+	type_ XIMStatusDataType
+	data  union {
+		text &XIMText
+		bitmap Pixmap
+	}
+}
+
+struct XIMHotKeyTrigger {
+	keysym        KeySym
+	modifier      int
+	modifier_mask int
+}
+
+struct XIMHotKeyTriggers {
+	num_hot_key int
+	key         &XIMHotKeyTrigger
+}
+
+type XIMHotKeyState = u32
+
+struct XIMValuesList {
+	count_values     u16
+	supported_values &&u8
+}
+
+fn C.XLoadQueryFont(arg0 &Display, arg1 &char) &XFontStruct
+
+pub fn (display &Display) xl_oad_query_font(arg1 &char) ?&XFontStruct {
+	res :=  C.XLoadQueryFont(display, arg1)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XQueryFont(arg0 &Display, arg1 XID) &XFontStruct
+
+pub fn (display &Display) xq_uery_font(arg1 XID) ?&XFontStruct {
+	res :=  C.XQueryFont(display, arg1)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XGetMotionEvents(arg0 &Display, arg1 Window, arg2 Time, arg3 Time, arg4 &int) &XTimeCoord
+
+pub fn (display &Display) xg_et_motion_events(arg1 Window, arg2 Time, arg3 Time, arg4 &int) ?&XTimeCoord {
+	res :=  C.XGetMotionEvents(display, arg1, arg2, arg3, arg4)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XDeleteModifiermapEntry(arg0 &XModifierKeymap, arg1 KeyCode, arg2 int) &XModifierKeymap
+
+pub fn (xModifierKeymap &XModifierKeymap) xd_elete_modifiermap_entry(arg1 KeyCode, arg2 int) ?&XModifierKeymap {
+	res :=  C.XDeleteModifiermapEntry(xModifierKeymap, arg1, arg2)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XGetModifierMapping(arg0 &Display) &XModifierKeymap
+
+pub fn (display &Display) xg_et_modifier_mapping() ?&XModifierKeymap {
+	res :=  C.XGetModifierMapping(display)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XInsertModifiermapEntry(arg0 &XModifierKeymap, arg1 KeyCode, arg2 int) &XModifierKeymap
+
+pub fn (xModifierKeymap &XModifierKeymap) xi_nsert_modifiermap_entry(arg1 KeyCode, arg2 int) ?&XModifierKeymap {
+	res :=  C.XInsertModifiermapEntry(xModifierKeymap, arg1, arg2)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XNewModifiermap(arg0 int) &XModifierKeymap
+
+pub fn xn_ew_modifiermap(arg0 int) ?&XModifierKeymap {
+	res :=  C.XNewModifiermap(arg0)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XCreateImage(arg0 &Display, arg1 &Visual, arg2 u32, arg3 int, arg4 int, arg5 &char, arg6 u32, arg7 u32, arg8 int, arg9 int) &XImage
+
+pub fn (display &Display) xc_reate_image(arg1 &Visual, arg2 u32, arg3 int, arg4 int, arg5 &char, arg6 u32, arg7 u32, arg8 int, arg9 int) ?&XImage {
+	res :=  C.XCreateImage(display, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XInitImage(arg0 &XImage) int
+
+pub fn xi_nit_image(arg0 &XImage) int {
+	return C.XInitImage(arg0)
+}
+
+fn C.XGetImage(arg0 &Display, arg1 Drawable, arg2 int, arg3 int, arg4 u32, arg5 u32, arg6 u32, arg7 int) &XImage
+
+pub fn (display &Display) xg_et_image(arg1 Drawable, arg2 int, arg3 int, arg4 u32, arg5 u32, arg6 u32, arg7 int) ?&XImage {
+	res :=  C.XGetImage(display, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XGetSubImage(arg0 &Display, arg1 Drawable, arg2 int, arg3 int, arg4 u32, arg5 u32, arg6 u32, arg7 int, arg8 &XImage, arg9 int, arg10 int) &XImage
+
+pub fn (display &Display) xg_et_sub_image(arg1 Drawable, arg2 int, arg3 int, arg4 u32, arg5 u32, arg6 u32, arg7 int, arg8 &XImage, arg9 int, arg10 int) ?&XImage {
+	res :=  C.XGetSubImage(display, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XOpenDisplay(arg0 &char) &Display
+
+pub fn xo_pen_display(arg0 &char) ?&Display {
+	res :=  C.XOpenDisplay(arg0)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XrmInitialize()
+
+pub fn xrm_initialize() {
+	C.XrmInitialize()
+}
+
+fn C.XFetchBytes(arg0 &Display, arg1 &int) &char
+
+pub fn (display &Display) xf_etch_bytes(arg1 &int) ?&char {
+	res :=  C.XFetchBytes(display, arg1)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XFetchBuffer(arg0 &Display, arg1 &int, arg2 int) &char
+
+pub fn (display &Display) xf_etch_buffer(arg1 &int, arg2 int) ?&char {
+	res :=  C.XFetchBuffer(display, arg1, arg2)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XGetAtomName(arg0 &Display, arg1 Atom) &char
+
+pub fn (display &Display) xg_et_atom_name(arg1 Atom) ?&char {
+	res :=  C.XGetAtomName(display, arg1)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XGetAtomNames(arg0 &Display, arg1 &Atom, arg2 int, arg3 &&u8) int
+
+pub fn xg_et_atom_names(arg0 &Display, arg1 &Atom, arg2 int, arg3 &&u8) int {
+	return C.XGetAtomNames(arg0, arg1, arg2, arg3)
+}
+
+fn C.XGetDefault(arg0 &Display, arg1 &char, arg2 &char) &char
+
+pub fn (display &Display) xg_et_default(arg1 &char, arg2 &char) ?&char {
+	res :=  C.XGetDefault(display, arg1, arg2)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XDisplayName(arg0 &char) &char
+
+pub fn xd_isplay_name(arg0 &char) ?&char {
+	res :=  C.XDisplayName(arg0)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XKeysymToString(arg0 KeySym) &char
+
+pub fn (self KeySym) xk_eysym_to_string() ?&char {
+	res :=  C.XKeysymToString(self)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XSynchronize(arg0 &Display, arg1 int) int
+
+pub fn xs_ynchronize(arg0 &Display, arg1 int) int {
+	return C.XSynchronize(arg0, arg1)
+}
+
+fn C.XSetAfterFunction(arg0 &Display, arg1 fn (&Display) i32) i32
+
+pub fn xs_et_after_function(arg0 &Display, arg1 fn (&Display) i32) i32 {
+	return C.XSetAfterFunction(arg0, arg1)
+}
+
+fn C.XInternAtom(arg0 &Display, arg1 &char, arg2 int) Atom
+
+pub fn xi_ntern_atom(arg0 &Display, arg1 &char, arg2 int) Atom {
+	return C.XInternAtom(arg0, arg1, arg2)
+}
+
+fn C.XInternAtoms(arg0 &Display, arg1 &&u8, arg2 int, arg3 int, arg4 &Atom) int
+
+pub fn xi_ntern_atoms(arg0 &Display, arg1 &&u8, arg2 int, arg3 int, arg4 &Atom) int {
+	return C.XInternAtoms(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XCopyColormapAndFree(arg0 &Display, arg1 Colormap) Colormap
+
+pub fn xc_opy_colormap_and_free(arg0 &Display, arg1 Colormap) Colormap {
+	return C.XCopyColormapAndFree(arg0, arg1)
+}
+
+fn C.XCreateColormap(arg0 &Display, arg1 Window, arg2 &Visual, arg3 int) Colormap
+
+pub fn xc_reate_colormap(arg0 &Display, arg1 Window, arg2 &Visual, arg3 int) Colormap {
+	return C.XCreateColormap(arg0, arg1, arg2, arg3)
+}
+
+fn C.XCreatePixmapCursor(arg0 &Display, arg1 Pixmap, arg2 Pixmap, arg3 &XColor, arg4 &XColor, arg5 u32, arg6 u32) Cursor
+
+pub fn xc_reate_pixmap_cursor(arg0 &Display, arg1 Pixmap, arg2 Pixmap, arg3 &XColor, arg4 &XColor, arg5 u32, arg6 u32) Cursor {
+	return C.XCreatePixmapCursor(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
+}
+
+fn C.XCreateGlyphCursor(arg0 &Display, arg1 Font, arg2 Font, arg3 u32, arg4 u32, arg5 &XColor, arg6 &XColor) Cursor
+
+pub fn xc_reate_glyph_cursor(arg0 &Display, arg1 Font, arg2 Font, arg3 u32, arg4 u32, arg5 &XColor, arg6 &XColor) Cursor {
+	return C.XCreateGlyphCursor(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
+}
+
+fn C.XCreateFontCursor(arg0 &Display, arg1 u32) Cursor
+
+pub fn xc_reate_font_cursor(arg0 &Display, arg1 u32) Cursor {
+	return C.XCreateFontCursor(arg0, arg1)
+}
+
+fn C.XLoadFont(arg0 &Display, arg1 &char) Font
+
+pub fn xl_oad_font(arg0 &Display, arg1 &char) Font {
+	return C.XLoadFont(arg0, arg1)
+}
+
+fn C.XCreateGC(arg0 &Display, arg1 Drawable, arg2 u32, arg3 &XGCValues) GC
+
+pub fn xc_reate_gc(arg0 &Display, arg1 Drawable, arg2 u32, arg3 &XGCValues) GC {
+	return C.XCreateGC(arg0, arg1, arg2, arg3)
+}
+
+fn C.XGContextFromGC(arg0 GC) GContext
+
+pub fn xg_context_from_gc(arg0 GC) GContext {
+	return C.XGContextFromGC(arg0)
+}
+
+fn C.XFlushGC(arg0 &Display, arg1 GC)
+
+pub fn xf_lush_gc(arg0 &Display, arg1 GC) {
+	C.XFlushGC(arg0, arg1)
+}
+
+fn C.XCreatePixmap(arg0 &Display, arg1 Drawable, arg2 u32, arg3 u32, arg4 u32) Pixmap
+
+pub fn xc_reate_pixmap(arg0 &Display, arg1 Drawable, arg2 u32, arg3 u32, arg4 u32) Pixmap {
+	return C.XCreatePixmap(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XCreateBitmapFromData(arg0 &Display, arg1 Drawable, arg2 &char, arg3 u32, arg4 u32) Pixmap
+
+pub fn xc_reate_bitmap_from_data(arg0 &Display, arg1 Drawable, arg2 &char, arg3 u32, arg4 u32) Pixmap {
+	return C.XCreateBitmapFromData(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XCreatePixmapFromBitmapData(arg0 &Display, arg1 Drawable, arg2 &char, arg3 u32, arg4 u32, arg5 u32, arg6 u32, arg7 u32) Pixmap
+
+pub fn xc_reate_pixmap_from_bitmap_data(arg0 &Display, arg1 Drawable, arg2 &char, arg3 u32, arg4 u32, arg5 u32, arg6 u32, arg7 u32) Pixmap {
+	return C.XCreatePixmapFromBitmapData(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
+}
+
+fn C.XCreateSimpleWindow(arg0 &Display, arg1 Window, arg2 int, arg3 int, arg4 u32, arg5 u32, arg6 u32, arg7 u32, arg8 u32) Window
+
+pub fn xc_reate_simple_window(arg0 &Display, arg1 Window, arg2 int, arg3 int, arg4 u32, arg5 u32, arg6 u32, arg7 u32, arg8 u32) Window {
+	return C.XCreateSimpleWindow(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+}
+
+fn C.XGetSelectionOwner(arg0 &Display, arg1 Atom) Window
+
+pub fn xg_et_selection_owner(arg0 &Display, arg1 Atom) Window {
+	return C.XGetSelectionOwner(arg0, arg1)
+}
+
+fn C.XCreateWindow(arg0 &Display, arg1 Window, arg2 int, arg3 int, arg4 u32, arg5 u32, arg6 u32, arg7 int, arg8 u32, arg9 &Visual, arg10 u32, arg11 &XSetWindowAttributes) Window
+
+pub fn xc_reate_window(arg0 &Display, arg1 Window, arg2 int, arg3 int, arg4 u32, arg5 u32, arg6 u32, arg7 int, arg8 u32, arg9 &Visual, arg10 u32, arg11 &XSetWindowAttributes) Window {
+	return C.XCreateWindow(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
+}
+
+fn C.XListInstalledColormaps(arg0 &Display, arg1 Window, arg2 &int) &Colormap
+
+pub fn (display &Display) xl_ist_installed_colormaps(arg1 Window, arg2 &int) ?&Colormap {
+	res :=  C.XListInstalledColormaps(display, arg1, arg2)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XListFonts(arg0 &Display, arg1 &char, arg2 int, arg3 &int) &&u8
+
+pub fn (display &Display) xl_ist_fonts(arg1 &char, arg2 int, arg3 &int) ?&&u8 {
+	res :=  C.XListFonts(display, arg1, arg2, arg3)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XListFontsWithInfo(arg0 &Display, arg1 &char, arg2 int, arg3 &int, arg4 &&XFontStruct) &&u8
+
+pub fn (display &Display) xl_ist_fonts_with_info(arg1 &char, arg2 int, arg3 &int, arg4 &&XFontStruct) ?&&u8 {
+	res :=  C.XListFontsWithInfo(display, arg1, arg2, arg3, arg4)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XGetFontPath(arg0 &Display, arg1 &int) &&u8
+
+pub fn (display &Display) xg_et_font_path(arg1 &int) ?&&u8 {
+	res :=  C.XGetFontPath(display, arg1)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XListExtensions(arg0 &Display, arg1 &int) &&u8
+
+pub fn (display &Display) xl_ist_extensions(arg1 &int) ?&&u8 {
+	res :=  C.XListExtensions(display, arg1)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XListProperties(arg0 &Display, arg1 Window, arg2 &int) &Atom
+
+pub fn (display &Display) xl_ist_properties(arg1 Window, arg2 &int) ?&Atom {
+	res :=  C.XListProperties(display, arg1, arg2)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XListHosts(arg0 &Display, arg1 &int, arg2 &int) &XHostAddress
+
+pub fn (display &Display) xl_ist_hosts(arg1 &int, arg2 &int) ?&XHostAddress {
+	res :=  C.XListHosts(display, arg1, arg2)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XKeycodeToKeysym(arg0 &Display, arg1 KeyCode, arg2 int) KeySym
+
+pub fn xk_eycode_to_keysym(arg0 &Display, arg1 KeyCode, arg2 int) KeySym {
+	return C.XKeycodeToKeysym(arg0, arg1, arg2)
+}
+
+fn C.XLookupKeysym(arg0 &XKeyEvent, arg1 int) KeySym
+
+pub fn xl_ookup_keysym(arg0 &XKeyEvent, arg1 int) KeySym {
+	return C.XLookupKeysym(arg0, arg1)
+}
+
+fn C.XGetKeyboardMapping(arg0 &Display, arg1 KeyCode, arg2 int, arg3 &int) &KeySym
+
+pub fn (display &Display) xg_et_keyboard_mapping(arg1 KeyCode, arg2 int, arg3 &int) ?&KeySym {
+	res :=  C.XGetKeyboardMapping(display, arg1, arg2, arg3)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XStringToKeysym(arg0 &char) KeySym
+
+pub fn xs_tring_to_keysym(arg0 &char) KeySym {
+	return C.XStringToKeysym(arg0)
+}
+
+fn C.XMaxRequestSize(arg0 &Display) int
+
+pub fn xm_ax_request_size(arg0 &Display) int {
+	return C.XMaxRequestSize(arg0)
+}
+
+fn C.XExtendedMaxRequestSize(arg0 &Display) int
+
+pub fn xe_xtended_max_request_size(arg0 &Display) int {
+	return C.XExtendedMaxRequestSize(arg0)
+}
+
+fn C.XResourceManagerString(arg0 &Display) &char
+
+pub fn (display &Display) xr_esource_manager_string() ?&char {
+	res :=  C.XResourceManagerString(display)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XScreenResourceString(arg0 &Screen) &char
+
+pub fn (screen &Screen) xs_creen_resource_string() ?&char {
+	res :=  C.XScreenResourceString(screen)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XDisplayMotionBufferSize(arg0 &Display) u32
+
+pub fn xd_isplay_motion_buffer_size(arg0 &Display) u32 {
+	return C.XDisplayMotionBufferSize(arg0)
+}
+
+fn C.XVisualIDFromVisual(arg0 &Visual) VisualID
+
+pub fn xv_isual_id_from_visual(arg0 &Visual) VisualID {
+	return C.XVisualIDFromVisual(arg0)
+}
+
+fn C.XInitThreads() int
+
+pub fn xi_nit_threads() int {
+	return C.XInitThreads()
+}
+
+fn C.XFreeThreads() int
+
+pub fn xf_ree_threads() int {
+	return C.XFreeThreads()
+}
+
+fn C.XLockDisplay(arg0 &Display)
+
+pub fn xl_ock_display(arg0 &Display) {
+	C.XLockDisplay(arg0)
+}
+
+fn C.XUnlockDisplay(arg0 &Display)
+
+pub fn xu_nlock_display(arg0 &Display) {
+	C.XUnlockDisplay(arg0)
+}
+
+fn C.XInitExtension(arg0 &Display, arg1 &char) &XExtCodes
+
+pub fn (display &Display) xi_nit_extension(arg1 &char) ?&XExtCodes {
+	res :=  C.XInitExtension(display, arg1)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XAddExtension(arg0 &Display) &XExtCodes
+
+pub fn (display &Display) xa_dd_extension() ?&XExtCodes {
+	res :=  C.XAddExtension(display)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XFindOnExtensionList(arg0 &&XExtData, arg1 int) &XExtData
+
+pub fn (extData &&XExtData) xf_ind_on_extension_list(arg1 int) ?&XExtData {
+	res :=  C.XFindOnExtensionList(extData, arg1)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XEHeadOfExtensionList(arg0 XEDataObject) &&XExtData
+
+pub fn (self XEDataObject) xe_head_of_extension_list() ?&&XExtData {
+	res :=  C.XEHeadOfExtensionList(self)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XRootWindow(arg0 &Display, arg1 int) Window
+
+pub fn xr_oot_window(arg0 &Display, arg1 int) Window {
+	return C.XRootWindow(arg0, arg1)
+}
+
+fn C.XDefaultRootWindow(arg0 &Display) Window
+
+pub fn xd_efault_root_window(arg0 &Display) Window {
+	return C.XDefaultRootWindow(arg0)
+}
+
+fn C.XRootWindowOfScreen(arg0 &Screen) Window
+
+pub fn xr_oot_window_of_screen(arg0 &Screen) Window {
+	return C.XRootWindowOfScreen(arg0)
+}
+
+fn C.XDefaultVisual(arg0 &Display, arg1 int) &Visual
+
+pub fn (display &Display) xd_efault_visual(arg1 int) ?&Visual {
+	res :=  C.XDefaultVisual(display, arg1)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XDefaultVisualOfScreen(arg0 &Screen) &Visual
+
+pub fn (screen &Screen) xd_efault_visual_of_screen() ?&Visual {
+	res :=  C.XDefaultVisualOfScreen(screen)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XDefaultGC(arg0 &Display, arg1 int) GC
+
+pub fn xd_efault_gc(arg0 &Display, arg1 int) GC {
+	return C.XDefaultGC(arg0, arg1)
+}
+
+fn C.XDefaultGCOfScreen(arg0 &Screen) GC
+
+pub fn xd_efault_gc_of_screen(arg0 &Screen) GC {
+	return C.XDefaultGCOfScreen(arg0)
+}
+
+fn C.XBlackPixel(arg0 &Display, arg1 int) u32
+
+pub fn xb_lack_pixel(arg0 &Display, arg1 int) u32 {
+	return C.XBlackPixel(arg0, arg1)
+}
+
+fn C.XWhitePixel(arg0 &Display, arg1 int) u32
+
+pub fn xw_hite_pixel(arg0 &Display, arg1 int) u32 {
+	return C.XWhitePixel(arg0, arg1)
+}
+
+fn C.XAllPlanes() u32
+
+pub fn xa_ll_planes() u32 {
+	return C.XAllPlanes()
+}
+
+fn C.XBlackPixelOfScreen(arg0 &Screen) u32
+
+pub fn xb_lack_pixel_of_screen(arg0 &Screen) u32 {
+	return C.XBlackPixelOfScreen(arg0)
+}
+
+fn C.XWhitePixelOfScreen(arg0 &Screen) u32
+
+pub fn xw_hite_pixel_of_screen(arg0 &Screen) u32 {
+	return C.XWhitePixelOfScreen(arg0)
+}
+
+fn C.XNextRequest(arg0 &Display) u32
+
+pub fn xn_ext_request(arg0 &Display) u32 {
+	return C.XNextRequest(arg0)
+}
+
+fn C.XLastKnownRequestProcessed(arg0 &Display) u32
+
+pub fn xl_ast_known_request_processed(arg0 &Display) u32 {
+	return C.XLastKnownRequestProcessed(arg0)
+}
+
+fn C.XServerVendor(arg0 &Display) &char
+
+pub fn (display &Display) xs_erver_vendor() ?&char {
+	res :=  C.XServerVendor(display)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XDisplayString(arg0 &Display) &char
+
+pub fn (display &Display) xd_isplay_string() ?&char {
+	res :=  C.XDisplayString(display)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XDefaultColormap(arg0 &Display, arg1 int) Colormap
+
+pub fn xd_efault_colormap(arg0 &Display, arg1 int) Colormap {
+	return C.XDefaultColormap(arg0, arg1)
+}
+
+fn C.XDefaultColormapOfScreen(arg0 &Screen) Colormap
+
+pub fn xd_efault_colormap_of_screen(arg0 &Screen) Colormap {
+	return C.XDefaultColormapOfScreen(arg0)
+}
+
+fn C.XDisplayOfScreen(arg0 &Screen) &Display
+
+pub fn (screen &Screen) xd_isplay_of_screen() ?&Display {
+	res :=  C.XDisplayOfScreen(screen)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XScreenOfDisplay(arg0 &Display, arg1 int) &Screen
+
+pub fn (display &Display) xs_creen_of_display(arg1 int) ?&Screen {
+	res :=  C.XScreenOfDisplay(display, arg1)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XDefaultScreenOfDisplay(arg0 &Display) &Screen
+
+pub fn (display &Display) xd_efault_screen_of_display() ?&Screen {
+	res :=  C.XDefaultScreenOfDisplay(display)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XEventMaskOfScreen(arg0 &Screen) int
+
+pub fn xe_vent_mask_of_screen(arg0 &Screen) int {
+	return C.XEventMaskOfScreen(arg0)
+}
+
+fn C.XScreenNumberOfScreen(arg0 &Screen) int
+
+pub fn xs_creen_number_of_screen(arg0 &Screen) int {
+	return C.XScreenNumberOfScreen(arg0)
+}
+
+type XErrorHandler = fn (&Display, &XErrorEvent) i32
+
+fn C.XSetErrorHandler(arg0 XErrorHandler) XErrorHandler
+
+pub fn xs_et_error_handler(arg0 XErrorHandler) XErrorHandler {
+	return C.XSetErrorHandler(arg0)
+}
+
+type XIOErrorHandler = fn (&Display) i32
+
+fn C.XSetIOErrorHandler(arg0 XIOErrorHandler) XIOErrorHandler
+
+pub fn xs_et_io_error_handler(arg0 XIOErrorHandler) XIOErrorHandler {
+	return C.XSetIOErrorHandler(arg0)
+}
+
+type XIOErrorExitHandler = fn (&Display, voidptr)
+
+fn C.XSetIOErrorExitHandler(arg0 &Display, arg1 XIOErrorExitHandler, arg2 voidptr)
+
+pub fn xs_et_io_error_exit_handler(arg0 &Display, arg1 XIOErrorExitHandler, arg2 voidptr) {
+	C.XSetIOErrorExitHandler(arg0, arg1, arg2)
+}
+
+fn C.XListPixmapFormats(arg0 &Display, arg1 &int) &XPixmapFormatValues
+
+pub fn (display &Display) xl_ist_pixmap_formats(arg1 &int) ?&XPixmapFormatValues {
+	res :=  C.XListPixmapFormats(display, arg1)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XListDepths(arg0 &Display, arg1 int, arg2 &int) &int
+
+pub fn (display &Display) xl_ist_depths(arg1 int, arg2 &int) ?&int {
+	res :=  C.XListDepths(display, arg1, arg2)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XReconfigureWMWindow(arg0 &Display, arg1 Window, arg2 int, arg3 u32, arg4 &XWindowChanges) int
+
+pub fn xr_econfigure_wm_window(arg0 &Display, arg1 Window, arg2 int, arg3 u32, arg4 &XWindowChanges) int {
+	return C.XReconfigureWMWindow(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XGetWMProtocols(arg0 &Display, arg1 Window, arg2 &&Atom, arg3 &int) int
+
+pub fn xg_et_wm_protocols(arg0 &Display, arg1 Window, arg2 &&Atom, arg3 &int) int {
+	return C.XGetWMProtocols(arg0, arg1, arg2, arg3)
+}
+
+fn C.XSetWMProtocols(arg0 &Display, arg1 Window, arg2 &Atom, arg3 int) int
+
+pub fn xs_et_wm_protocols(arg0 &Display, arg1 Window, arg2 &Atom, arg3 int) int {
+	return C.XSetWMProtocols(arg0, arg1, arg2, arg3)
+}
+
+fn C.XIconifyWindow(arg0 &Display, arg1 Window, arg2 int) int
+
+pub fn xi_conify_window(arg0 &Display, arg1 Window, arg2 int) int {
+	return C.XIconifyWindow(arg0, arg1, arg2)
+}
+
+fn C.XWithdrawWindow(arg0 &Display, arg1 Window, arg2 int) int
+
+pub fn xw_ithdraw_window(arg0 &Display, arg1 Window, arg2 int) int {
+	return C.XWithdrawWindow(arg0, arg1, arg2)
+}
+
+fn C.XGetCommand(arg0 &Display, arg1 Window, arg2 &&&char, arg3 &int) int
+
+pub fn xg_et_command(arg0 &Display, arg1 Window, arg2 &&&char, arg3 &int) int {
+	return C.XGetCommand(arg0, arg1, arg2, arg3)
+}
+
+fn C.XGetWMColormapWindows(arg0 &Display, arg1 Window, arg2 &&Window, arg3 &int) int
+
+pub fn xg_et_wm_colormap_windows(arg0 &Display, arg1 Window, arg2 &&Window, arg3 &int) int {
+	return C.XGetWMColormapWindows(arg0, arg1, arg2, arg3)
+}
+
+fn C.XSetWMColormapWindows(arg0 &Display, arg1 Window, arg2 &Window, arg3 int) int
+
+pub fn xs_et_wm_colormap_windows(arg0 &Display, arg1 Window, arg2 &Window, arg3 int) int {
+	return C.XSetWMColormapWindows(arg0, arg1, arg2, arg3)
+}
+
+fn C.XFreeStringList(arg0 &&u8)
+
+pub fn xf_ree_string_list(arg0 &&u8) {
+	C.XFreeStringList(arg0)
+}
+
+fn C.XSetTransientForHint(arg0 &Display, arg1 Window, arg2 Window) int
+
+pub fn xs_et_transient_for_hint(arg0 &Display, arg1 Window, arg2 Window) int {
+	return C.XSetTransientForHint(arg0, arg1, arg2)
+}
+
+fn C.XActivateScreenSaver(arg0 &Display) int
+
+pub fn xa_ctivate_screen_saver(arg0 &Display) int {
+	return C.XActivateScreenSaver(arg0)
+}
+
+fn C.XAddHost(arg0 &Display, arg1 &XHostAddress) int
+
+pub fn xa_dd_host(arg0 &Display, arg1 &XHostAddress) int {
+	return C.XAddHost(arg0, arg1)
+}
+
+fn C.XAddHosts(arg0 &Display, arg1 &XHostAddress, arg2 int) int
+
+pub fn xa_dd_hosts(arg0 &Display, arg1 &XHostAddress, arg2 int) int {
+	return C.XAddHosts(arg0, arg1, arg2)
+}
+
+fn C.XAddToExtensionList(arg0 &&XExtData, arg1 &XExtData) int
+
+pub fn xa_dd_to_extension_list(arg0 &&XExtData, arg1 &XExtData) int {
+	return C.XAddToExtensionList(arg0, arg1)
+}
+
+fn C.XAddToSaveSet(arg0 &Display, arg1 Window) int
+
+pub fn xa_dd_to_save_set(arg0 &Display, arg1 Window) int {
+	return C.XAddToSaveSet(arg0, arg1)
+}
+
+fn C.XAllocColor(arg0 &Display, arg1 Colormap, arg2 &XColor) int
+
+pub fn xa_lloc_color(arg0 &Display, arg1 Colormap, arg2 &XColor) int {
+	return C.XAllocColor(arg0, arg1, arg2)
+}
+
+fn C.XAllocColorCells(arg0 &Display, arg1 Colormap, arg2 int, arg3 &u32, arg4 u32, arg5 &u32, arg6 u32) int
+
+pub fn xa_lloc_color_cells(arg0 &Display, arg1 Colormap, arg2 int, arg3 &u32, arg4 u32, arg5 &u32, arg6 u32) int {
+	return C.XAllocColorCells(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
+}
+
+fn C.XAllocColorPlanes(arg0 &Display, arg1 Colormap, arg2 int, arg3 &u32, arg4 int, arg5 int, arg6 int, arg7 int, arg8 &u32, arg9 &u32, arg10 &u32) int
+
+pub fn xa_lloc_color_planes(arg0 &Display, arg1 Colormap, arg2 int, arg3 &u32, arg4 int, arg5 int, arg6 int, arg7 int, arg8 &u32, arg9 &u32, arg10 &u32) int {
+	return C.XAllocColorPlanes(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+}
+
+fn C.XAllocNamedColor(arg0 &Display, arg1 Colormap, arg2 &char, arg3 &XColor, arg4 &XColor) int
+
+pub fn xa_lloc_named_color(arg0 &Display, arg1 Colormap, arg2 &char, arg3 &XColor, arg4 &XColor) int {
+	return C.XAllocNamedColor(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XAllowEvents(arg0 &Display, arg1 int, arg2 Time) int
+
+pub fn xa_llow_events(arg0 &Display, arg1 int, arg2 Time) int {
+	return C.XAllowEvents(arg0, arg1, arg2)
+}
+
+fn C.XAutoRepeatOff(arg0 &Display) int
+
+pub fn xa_uto_repeat_off(arg0 &Display) int {
+	return C.XAutoRepeatOff(arg0)
+}
+
+fn C.XAutoRepeatOn(arg0 &Display) int
+
+pub fn xa_uto_repeat_on(arg0 &Display) int {
+	return C.XAutoRepeatOn(arg0)
+}
+
+fn C.XBell(arg0 &Display, arg1 int) int
+
+pub fn xb_ell(arg0 &Display, arg1 int) int {
+	return C.XBell(arg0, arg1)
+}
+
+fn C.XBitmapBitOrder(arg0 &Display) int
+
+pub fn xb_itmap_bit_order(arg0 &Display) int {
+	return C.XBitmapBitOrder(arg0)
+}
+
+fn C.XBitmapPad(arg0 &Display) int
+
+pub fn xb_itmap_pad(arg0 &Display) int {
+	return C.XBitmapPad(arg0)
+}
+
+fn C.XBitmapUnit(arg0 &Display) int
+
+pub fn xb_itmap_unit(arg0 &Display) int {
+	return C.XBitmapUnit(arg0)
+}
+
+fn C.XCellsOfScreen(arg0 &Screen) int
+
+pub fn xc_ells_of_screen(arg0 &Screen) int {
+	return C.XCellsOfScreen(arg0)
+}
+
+fn C.XChangeActivePointerGrab(arg0 &Display, arg1 u32, arg2 Cursor, arg3 Time) int
+
+pub fn xc_hange_active_pointer_grab(arg0 &Display, arg1 u32, arg2 Cursor, arg3 Time) int {
+	return C.XChangeActivePointerGrab(arg0, arg1, arg2, arg3)
+}
+
+fn C.XChangeGC(arg0 &Display, arg1 GC, arg2 u32, arg3 &XGCValues) int
+
+pub fn xc_hange_gc(arg0 &Display, arg1 GC, arg2 u32, arg3 &XGCValues) int {
+	return C.XChangeGC(arg0, arg1, arg2, arg3)
+}
+
+fn C.XChangeKeyboardControl(arg0 &Display, arg1 u32, arg2 &XKeyboardControl) int
+
+pub fn xc_hange_keyboard_control(arg0 &Display, arg1 u32, arg2 &XKeyboardControl) int {
+	return C.XChangeKeyboardControl(arg0, arg1, arg2)
+}
+
+fn C.XChangeKeyboardMapping(arg0 &Display, arg1 int, arg2 int, arg3 &KeySym, arg4 int) int
+
+pub fn xc_hange_keyboard_mapping(arg0 &Display, arg1 int, arg2 int, arg3 &KeySym, arg4 int) int {
+	return C.XChangeKeyboardMapping(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XChangePointerControl(arg0 &Display, arg1 int, arg2 int, arg3 int, arg4 int, arg5 int) int
+
+pub fn xc_hange_pointer_control(arg0 &Display, arg1 int, arg2 int, arg3 int, arg4 int, arg5 int) int {
+	return C.XChangePointerControl(arg0, arg1, arg2, arg3, arg4, arg5)
+}
+
+fn C.XChangeProperty(arg0 &Display, arg1 Window, arg2 Atom, arg3 Atom, arg4 int, arg5 int, arg6 &u8, arg7 int) int
+
+pub fn xc_hange_property(arg0 &Display, arg1 Window, arg2 Atom, arg3 Atom, arg4 int, arg5 int, arg6 &u8, arg7 int) int {
+	return C.XChangeProperty(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
+}
+
+fn C.XChangeSaveSet(arg0 &Display, arg1 Window, arg2 int) int
+
+pub fn xc_hange_save_set(arg0 &Display, arg1 Window, arg2 int) int {
+	return C.XChangeSaveSet(arg0, arg1, arg2)
+}
+
+fn C.XChangeWindowAttributes(arg0 &Display, arg1 Window, arg2 u32, arg3 &XSetWindowAttributes) int
+
+pub fn xc_hange_window_attributes(arg0 &Display, arg1 Window, arg2 u32, arg3 &XSetWindowAttributes) int {
+	return C.XChangeWindowAttributes(arg0, arg1, arg2, arg3)
+}
+
+fn C.XCheckIfEvent(arg0 &Display, arg1 &XEvent, arg2 fn (&Display, &XEvent, XPointer) i32, arg3 XPointer) int
+
+pub fn xc_heck_if_event(arg0 &Display, arg1 &XEvent, arg2 fn (&Display, &XEvent, XPointer) i32, arg3 XPointer) int {
+	return C.XCheckIfEvent(arg0, arg1, arg2, arg3)
+}
+
+fn C.XCheckMaskEvent(arg0 &Display, arg1 int, arg2 &XEvent) int
+
+pub fn xc_heck_mask_event(arg0 &Display, arg1 int, arg2 &XEvent) int {
+	return C.XCheckMaskEvent(arg0, arg1, arg2)
+}
+
+fn C.XCheckTypedEvent(arg0 &Display, arg1 int, arg2 &XEvent) int
+
+pub fn xc_heck_typed_event(arg0 &Display, arg1 int, arg2 &XEvent) int {
+	return C.XCheckTypedEvent(arg0, arg1, arg2)
+}
+
+fn C.XCheckTypedWindowEvent(arg0 &Display, arg1 Window, arg2 int, arg3 &XEvent) int
+
+pub fn xc_heck_typed_window_event(arg0 &Display, arg1 Window, arg2 int, arg3 &XEvent) int {
+	return C.XCheckTypedWindowEvent(arg0, arg1, arg2, arg3)
+}
+
+fn C.XCheckWindowEvent(arg0 &Display, arg1 Window, arg2 int, arg3 &XEvent) int
+
+pub fn xc_heck_window_event(arg0 &Display, arg1 Window, arg2 int, arg3 &XEvent) int {
+	return C.XCheckWindowEvent(arg0, arg1, arg2, arg3)
+}
+
+fn C.XCirculateSubwindows(arg0 &Display, arg1 Window, arg2 int) int
+
+pub fn xc_irculate_subwindows(arg0 &Display, arg1 Window, arg2 int) int {
+	return C.XCirculateSubwindows(arg0, arg1, arg2)
+}
+
+fn C.XCirculateSubwindowsDown(arg0 &Display, arg1 Window) int
+
+pub fn xc_irculate_subwindows_down(arg0 &Display, arg1 Window) int {
+	return C.XCirculateSubwindowsDown(arg0, arg1)
+}
+
+fn C.XCirculateSubwindowsUp(arg0 &Display, arg1 Window) int
+
+pub fn xc_irculate_subwindows_up(arg0 &Display, arg1 Window) int {
+	return C.XCirculateSubwindowsUp(arg0, arg1)
+}
+
+fn C.XClearArea(arg0 &Display, arg1 Window, arg2 int, arg3 int, arg4 u32, arg5 u32, arg6 int) int
+
+pub fn xc_lear_area(arg0 &Display, arg1 Window, arg2 int, arg3 int, arg4 u32, arg5 u32, arg6 int) int {
+	return C.XClearArea(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
+}
+
+fn C.XClearWindow(arg0 &Display, arg1 Window) int
+
+pub fn xc_lear_window(arg0 &Display, arg1 Window) int {
+	return C.XClearWindow(arg0, arg1)
+}
+
+fn C.XCloseDisplay(arg0 &Display) int
+
+pub fn xc_lose_display(arg0 &Display) int {
+	return C.XCloseDisplay(arg0)
+}
+
+fn C.XConfigureWindow(arg0 &Display, arg1 Window, arg2 u32, arg3 &XWindowChanges) int
+
+pub fn xc_onfigure_window(arg0 &Display, arg1 Window, arg2 u32, arg3 &XWindowChanges) int {
+	return C.XConfigureWindow(arg0, arg1, arg2, arg3)
+}
+
+fn C.XConnectionNumber(arg0 &Display) int
+
+pub fn xc_onnection_number(arg0 &Display) int {
+	return C.XConnectionNumber(arg0)
+}
+
+fn C.XConvertSelection(arg0 &Display, arg1 Atom, arg2 Atom, arg3 Atom, arg4 Window, arg5 Time) int
+
+pub fn xc_onvert_selection(arg0 &Display, arg1 Atom, arg2 Atom, arg3 Atom, arg4 Window, arg5 Time) int {
+	return C.XConvertSelection(arg0, arg1, arg2, arg3, arg4, arg5)
+}
+
+fn C.XCopyArea(arg0 &Display, arg1 Drawable, arg2 Drawable, arg3 GC, arg4 int, arg5 int, arg6 u32, arg7 u32, arg8 int, arg9 int) int
+
+pub fn xc_opy_area(arg0 &Display, arg1 Drawable, arg2 Drawable, arg3 GC, arg4 int, arg5 int, arg6 u32, arg7 u32, arg8 int, arg9 int) int {
+	return C.XCopyArea(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+}
+
+fn C.XCopyGC(arg0 &Display, arg1 GC, arg2 u32, arg3 GC) int
+
+pub fn xc_opy_gc(arg0 &Display, arg1 GC, arg2 u32, arg3 GC) int {
+	return C.XCopyGC(arg0, arg1, arg2, arg3)
+}
+
+fn C.XCopyPlane(arg0 &Display, arg1 Drawable, arg2 Drawable, arg3 GC, arg4 int, arg5 int, arg6 u32, arg7 u32, arg8 int, arg9 int, arg10 u32) int
+
+pub fn xc_opy_plane(arg0 &Display, arg1 Drawable, arg2 Drawable, arg3 GC, arg4 int, arg5 int, arg6 u32, arg7 u32, arg8 int, arg9 int, arg10 u32) int {
+	return C.XCopyPlane(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+}
+
+fn C.XDefaultDepth(arg0 &Display, arg1 int) int
+
+pub fn xd_efault_depth(arg0 &Display, arg1 int) int {
+	return C.XDefaultDepth(arg0, arg1)
+}
+
+fn C.XDefaultDepthOfScreen(arg0 &Screen) int
+
+pub fn xd_efault_depth_of_screen(arg0 &Screen) int {
+	return C.XDefaultDepthOfScreen(arg0)
+}
+
+fn C.XDefaultScreen(arg0 &Display) int
+
+pub fn xd_efault_screen(arg0 &Display) int {
+	return C.XDefaultScreen(arg0)
+}
+
+fn C.XDefineCursor(arg0 &Display, arg1 Window, arg2 Cursor) int
+
+pub fn xd_efine_cursor(arg0 &Display, arg1 Window, arg2 Cursor) int {
+	return C.XDefineCursor(arg0, arg1, arg2)
+}
+
+fn C.XDeleteProperty(arg0 &Display, arg1 Window, arg2 Atom) int
+
+pub fn xd_elete_property(arg0 &Display, arg1 Window, arg2 Atom) int {
+	return C.XDeleteProperty(arg0, arg1, arg2)
+}
+
+fn C.XDestroyWindow(arg0 &Display, arg1 Window) int
+
+pub fn xd_estroy_window(arg0 &Display, arg1 Window) int {
+	return C.XDestroyWindow(arg0, arg1)
+}
+
+fn C.XDestroySubwindows(arg0 &Display, arg1 Window) int
+
+pub fn xd_estroy_subwindows(arg0 &Display, arg1 Window) int {
+	return C.XDestroySubwindows(arg0, arg1)
+}
+
+fn C.XDoesBackingStore(arg0 &Screen) int
+
+pub fn xd_oes_backing_store(arg0 &Screen) int {
+	return C.XDoesBackingStore(arg0)
+}
+
+fn C.XDoesSaveUnders(arg0 &Screen) int
+
+pub fn xd_oes_save_unders(arg0 &Screen) int {
+	return C.XDoesSaveUnders(arg0)
+}
+
+fn C.XDisableAccessControl(arg0 &Display) int
+
+pub fn xd_isable_access_control(arg0 &Display) int {
+	return C.XDisableAccessControl(arg0)
+}
+
+fn C.XDisplayCells(arg0 &Display, arg1 int) int
+
+pub fn xd_isplay_cells(arg0 &Display, arg1 int) int {
+	return C.XDisplayCells(arg0, arg1)
+}
+
+fn C.XDisplayHeight(arg0 &Display, arg1 int) int
+
+pub fn xd_isplay_height(arg0 &Display, arg1 int) int {
+	return C.XDisplayHeight(arg0, arg1)
+}
+
+fn C.XDisplayHeightMM(arg0 &Display, arg1 int) int
+
+pub fn xd_isplay_height_mm(arg0 &Display, arg1 int) int {
+	return C.XDisplayHeightMM(arg0, arg1)
+}
+
+fn C.XDisplayKeycodes(arg0 &Display, arg1 &int, arg2 &int) int
+
+pub fn xd_isplay_keycodes(arg0 &Display, arg1 &int, arg2 &int) int {
+	return C.XDisplayKeycodes(arg0, arg1, arg2)
+}
+
+fn C.XDisplayPlanes(arg0 &Display, arg1 int) int
+
+pub fn xd_isplay_planes(arg0 &Display, arg1 int) int {
+	return C.XDisplayPlanes(arg0, arg1)
+}
+
+fn C.XDisplayWidth(arg0 &Display, arg1 int) int
+
+pub fn xd_isplay_width(arg0 &Display, arg1 int) int {
+	return C.XDisplayWidth(arg0, arg1)
+}
+
+fn C.XDisplayWidthMM(arg0 &Display, arg1 int) int
+
+pub fn xd_isplay_width_mm(arg0 &Display, arg1 int) int {
+	return C.XDisplayWidthMM(arg0, arg1)
+}
+
+fn C.XDrawArc(arg0 &Display, arg1 Drawable, arg2 GC, arg3 int, arg4 int, arg5 u32, arg6 u32, arg7 int, arg8 int) int
+
+pub fn xd_raw_arc(arg0 &Display, arg1 Drawable, arg2 GC, arg3 int, arg4 int, arg5 u32, arg6 u32, arg7 int, arg8 int) int {
+	return C.XDrawArc(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+}
+
+fn C.XDrawArcs(arg0 &Display, arg1 Drawable, arg2 GC, arg3 &XArc, arg4 int) int
+
+pub fn xd_raw_arcs(arg0 &Display, arg1 Drawable, arg2 GC, arg3 &XArc, arg4 int) int {
+	return C.XDrawArcs(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XDrawImageString(arg0 &Display, arg1 Drawable, arg2 GC, arg3 int, arg4 int, arg5 &char, arg6 int) int
+
+pub fn xd_raw_image_string(arg0 &Display, arg1 Drawable, arg2 GC, arg3 int, arg4 int, arg5 &char, arg6 int) int {
+	return C.XDrawImageString(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
+}
+
+fn C.XDrawImageString16(arg0 &Display, arg1 Drawable, arg2 GC, arg3 int, arg4 int, arg5 &XChar2b, arg6 int) int
+
+pub fn xd_raw_image_string16(arg0 &Display, arg1 Drawable, arg2 GC, arg3 int, arg4 int, arg5 &XChar2b, arg6 int) int {
+	return C.XDrawImageString16(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
+}
+
+fn C.XDrawLine(arg0 &Display, arg1 Drawable, arg2 GC, arg3 int, arg4 int, arg5 int, arg6 int) int
+
+pub fn xd_raw_line(arg0 &Display, arg1 Drawable, arg2 GC, arg3 int, arg4 int, arg5 int, arg6 int) int {
+	return C.XDrawLine(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
+}
+
+fn C.XDrawLines(arg0 &Display, arg1 Drawable, arg2 GC, arg3 &XPoint, arg4 int, arg5 int) int
+
+pub fn xd_raw_lines(arg0 &Display, arg1 Drawable, arg2 GC, arg3 &XPoint, arg4 int, arg5 int) int {
+	return C.XDrawLines(arg0, arg1, arg2, arg3, arg4, arg5)
+}
+
+fn C.XDrawPoint(arg0 &Display, arg1 Drawable, arg2 GC, arg3 int, arg4 int) int
+
+pub fn xd_raw_point(arg0 &Display, arg1 Drawable, arg2 GC, arg3 int, arg4 int) int {
+	return C.XDrawPoint(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XDrawPoints(arg0 &Display, arg1 Drawable, arg2 GC, arg3 &XPoint, arg4 int, arg5 int) int
+
+pub fn xd_raw_points(arg0 &Display, arg1 Drawable, arg2 GC, arg3 &XPoint, arg4 int, arg5 int) int {
+	return C.XDrawPoints(arg0, arg1, arg2, arg3, arg4, arg5)
+}
+
+fn C.XDrawRectangle(arg0 &Display, arg1 Drawable, arg2 GC, arg3 int, arg4 int, arg5 u32, arg6 u32) int
+
+pub fn xd_raw_rectangle(arg0 &Display, arg1 Drawable, arg2 GC, arg3 int, arg4 int, arg5 u32, arg6 u32) int {
+	return C.XDrawRectangle(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
+}
+
+fn C.XDrawRectangles(arg0 &Display, arg1 Drawable, arg2 GC, arg3 &XRectangle, arg4 int) int
+
+pub fn xd_raw_rectangles(arg0 &Display, arg1 Drawable, arg2 GC, arg3 &XRectangle, arg4 int) int {
+	return C.XDrawRectangles(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XDrawSegments(arg0 &Display, arg1 Drawable, arg2 GC, arg3 &XSegment, arg4 int) int
+
+pub fn xd_raw_segments(arg0 &Display, arg1 Drawable, arg2 GC, arg3 &XSegment, arg4 int) int {
+	return C.XDrawSegments(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XDrawString(arg0 &Display, arg1 Drawable, arg2 GC, arg3 int, arg4 int, arg5 &char, arg6 int) int
+
+pub fn xd_raw_string(arg0 &Display, arg1 Drawable, arg2 GC, arg3 int, arg4 int, arg5 &char, arg6 int) int {
+	return C.XDrawString(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
+}
+
+fn C.XDrawString16(arg0 &Display, arg1 Drawable, arg2 GC, arg3 int, arg4 int, arg5 &XChar2b, arg6 int) int
+
+pub fn xd_raw_string16(arg0 &Display, arg1 Drawable, arg2 GC, arg3 int, arg4 int, arg5 &XChar2b, arg6 int) int {
+	return C.XDrawString16(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
+}
+
+fn C.XDrawText(arg0 &Display, arg1 Drawable, arg2 GC, arg3 int, arg4 int, arg5 &XTextItem, arg6 int) int
+
+pub fn xd_raw_text(arg0 &Display, arg1 Drawable, arg2 GC, arg3 int, arg4 int, arg5 &XTextItem, arg6 int) int {
+	return C.XDrawText(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
+}
+
+fn C.XDrawText16(arg0 &Display, arg1 Drawable, arg2 GC, arg3 int, arg4 int, arg5 &XTextItem16, arg6 int) int
+
+pub fn xd_raw_text16(arg0 &Display, arg1 Drawable, arg2 GC, arg3 int, arg4 int, arg5 &XTextItem16, arg6 int) int {
+	return C.XDrawText16(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
+}
+
+fn C.XEnableAccessControl(arg0 &Display) int
+
+pub fn xe_nable_access_control(arg0 &Display) int {
+	return C.XEnableAccessControl(arg0)
+}
+
+fn C.XEventsQueued(arg0 &Display, arg1 int) int
+
+pub fn xe_vents_queued(arg0 &Display, arg1 int) int {
+	return C.XEventsQueued(arg0, arg1)
+}
+
+fn C.XFetchName(arg0 &Display, arg1 Window, arg2 &&u8) int
+
+pub fn xf_etch_name(arg0 &Display, arg1 Window, arg2 &&u8) int {
+	return C.XFetchName(arg0, arg1, arg2)
+}
+
+fn C.XFillArc(arg0 &Display, arg1 Drawable, arg2 GC, arg3 int, arg4 int, arg5 u32, arg6 u32, arg7 int, arg8 int) int
+
+pub fn xf_ill_arc(arg0 &Display, arg1 Drawable, arg2 GC, arg3 int, arg4 int, arg5 u32, arg6 u32, arg7 int, arg8 int) int {
+	return C.XFillArc(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+}
+
+fn C.XFillArcs(arg0 &Display, arg1 Drawable, arg2 GC, arg3 &XArc, arg4 int) int
+
+pub fn xf_ill_arcs(arg0 &Display, arg1 Drawable, arg2 GC, arg3 &XArc, arg4 int) int {
+	return C.XFillArcs(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XFillPolygon(arg0 &Display, arg1 Drawable, arg2 GC, arg3 &XPoint, arg4 int, arg5 int, arg6 int) int
+
+pub fn xf_ill_polygon(arg0 &Display, arg1 Drawable, arg2 GC, arg3 &XPoint, arg4 int, arg5 int, arg6 int) int {
+	return C.XFillPolygon(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
+}
+
+fn C.XFillRectangle(arg0 &Display, arg1 Drawable, arg2 GC, arg3 int, arg4 int, arg5 u32, arg6 u32) int
+
+pub fn xf_ill_rectangle(arg0 &Display, arg1 Drawable, arg2 GC, arg3 int, arg4 int, arg5 u32, arg6 u32) int {
+	return C.XFillRectangle(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
+}
+
+fn C.XFillRectangles(arg0 &Display, arg1 Drawable, arg2 GC, arg3 &XRectangle, arg4 int) int
+
+pub fn xf_ill_rectangles(arg0 &Display, arg1 Drawable, arg2 GC, arg3 &XRectangle, arg4 int) int {
+	return C.XFillRectangles(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XFlush(arg0 &Display) int
+
+pub fn xf_lush(arg0 &Display) int {
+	return C.XFlush(arg0)
+}
+
+fn C.XForceScreenSaver(arg0 &Display, arg1 int) int
+
+pub fn xf_orce_screen_saver(arg0 &Display, arg1 int) int {
+	return C.XForceScreenSaver(arg0, arg1)
+}
+
+fn C.XFree(arg0 voidptr) int
+
+pub fn xf_ree(arg0 voidptr) int {
+	return C.XFree(arg0)
+}
+
+fn C.XFreeColormap(arg0 &Display, arg1 Colormap) int
+
+pub fn xf_ree_colormap(arg0 &Display, arg1 Colormap) int {
+	return C.XFreeColormap(arg0, arg1)
+}
+
+fn C.XFreeColors(arg0 &Display, arg1 Colormap, arg2 &u32, arg3 int, arg4 u32) int
+
+pub fn xf_ree_colors(arg0 &Display, arg1 Colormap, arg2 &u32, arg3 int, arg4 u32) int {
+	return C.XFreeColors(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XFreeCursor(arg0 &Display, arg1 Cursor) int
+
+pub fn xf_ree_cursor(arg0 &Display, arg1 Cursor) int {
+	return C.XFreeCursor(arg0, arg1)
+}
+
+fn C.XFreeExtensionList(arg0 &&u8) int
+
+pub fn xf_ree_extension_list(arg0 &&u8) int {
+	return C.XFreeExtensionList(arg0)
+}
+
+fn C.XFreeFont(arg0 &Display, arg1 &XFontStruct) int
+
+pub fn xf_ree_font(arg0 &Display, arg1 &XFontStruct) int {
+	return C.XFreeFont(arg0, arg1)
+}
+
+fn C.XFreeFontInfo(arg0 &&u8, arg1 &XFontStruct, arg2 int) int
+
+pub fn xf_ree_font_info(arg0 &&u8, arg1 &XFontStruct, arg2 int) int {
+	return C.XFreeFontInfo(arg0, arg1, arg2)
+}
+
+fn C.XFreeFontNames(arg0 &&u8) int
+
+pub fn xf_ree_font_names(arg0 &&u8) int {
+	return C.XFreeFontNames(arg0)
+}
+
+fn C.XFreeFontPath(arg0 &&u8) int
+
+pub fn xf_ree_font_path(arg0 &&u8) int {
+	return C.XFreeFontPath(arg0)
+}
+
+fn C.XFreeGC(arg0 &Display, arg1 GC) int
+
+pub fn xf_ree_gc(arg0 &Display, arg1 GC) int {
+	return C.XFreeGC(arg0, arg1)
+}
+
+fn C.XFreeModifiermap(arg0 &XModifierKeymap) int
+
+pub fn xf_ree_modifiermap(arg0 &XModifierKeymap) int {
+	return C.XFreeModifiermap(arg0)
+}
+
+fn C.XFreePixmap(arg0 &Display, arg1 Pixmap) int
+
+pub fn xf_ree_pixmap(arg0 &Display, arg1 Pixmap) int {
+	return C.XFreePixmap(arg0, arg1)
+}
+
+fn C.XGeometry(arg0 &Display, arg1 int, arg2 &char, arg3 &char, arg4 u32, arg5 u32, arg6 u32, arg7 int, arg8 int, arg9 &int, arg10 &int, arg11 &int, arg12 &int) int
+
+pub fn xg_eometry(arg0 &Display, arg1 int, arg2 &char, arg3 &char, arg4 u32, arg5 u32, arg6 u32, arg7 int, arg8 int, arg9 &int, arg10 &int, arg11 &int, arg12 &int) int {
+	return C.XGeometry(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12)
+}
+
+fn C.XGetErrorDatabaseText(arg0 &Display, arg1 &char, arg2 &char, arg3 &char, arg4 &char, arg5 int) int
+
+pub fn xg_et_error_database_text(arg0 &Display, arg1 &char, arg2 &char, arg3 &char, arg4 &char, arg5 int) int {
+	return C.XGetErrorDatabaseText(arg0, arg1, arg2, arg3, arg4, arg5)
+}
+
+fn C.XGetErrorText(arg0 &Display, arg1 int, arg2 &char, arg3 int) int
+
+pub fn xg_et_error_text(arg0 &Display, arg1 int, arg2 &char, arg3 int) int {
+	return C.XGetErrorText(arg0, arg1, arg2, arg3)
+}
+
+fn C.XGetFontProperty(arg0 &XFontStruct, arg1 Atom, arg2 &u32) int
+
+pub fn xg_et_font_property(arg0 &XFontStruct, arg1 Atom, arg2 &u32) int {
+	return C.XGetFontProperty(arg0, arg1, arg2)
+}
+
+fn C.XGetGCValues(arg0 &Display, arg1 GC, arg2 u32, arg3 &XGCValues) int
+
+pub fn xg_et_gc_values(arg0 &Display, arg1 GC, arg2 u32, arg3 &XGCValues) int {
+	return C.XGetGCValues(arg0, arg1, arg2, arg3)
+}
+
+fn C.XGetGeometry(arg0 &Display, arg1 Drawable, arg2 &Window, arg3 &int, arg4 &int, arg5 &u32, arg6 &u32, arg7 &u32, arg8 &u32) int
+
+pub fn xg_et_geometry(arg0 &Display, arg1 Drawable, arg2 &Window, arg3 &int, arg4 &int, arg5 &u32, arg6 &u32, arg7 &u32, arg8 &u32) int {
+	return C.XGetGeometry(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+}
+
+fn C.XGetIconName(arg0 &Display, arg1 Window, arg2 &&u8) int
+
+pub fn xg_et_icon_name(arg0 &Display, arg1 Window, arg2 &&u8) int {
+	return C.XGetIconName(arg0, arg1, arg2)
+}
+
+fn C.XGetInputFocus(arg0 &Display, arg1 &Window, arg2 &int) int
+
+pub fn xg_et_input_focus(arg0 &Display, arg1 &Window, arg2 &int) int {
+	return C.XGetInputFocus(arg0, arg1, arg2)
+}
+
+fn C.XGetKeyboardControl(arg0 &Display, arg1 &XKeyboardState) int
+
+pub fn xg_et_keyboard_control(arg0 &Display, arg1 &XKeyboardState) int {
+	return C.XGetKeyboardControl(arg0, arg1)
+}
+
+fn C.XGetPointerControl(arg0 &Display, arg1 &int, arg2 &int, arg3 &int) int
+
+pub fn xg_et_pointer_control(arg0 &Display, arg1 &int, arg2 &int, arg3 &int) int {
+	return C.XGetPointerControl(arg0, arg1, arg2, arg3)
+}
+
+fn C.XGetPointerMapping(arg0 &Display, arg1 &u8, arg2 int) int
+
+pub fn xg_et_pointer_mapping(arg0 &Display, arg1 &u8, arg2 int) int {
+	return C.XGetPointerMapping(arg0, arg1, arg2)
+}
+
+fn C.XGetScreenSaver(arg0 &Display, arg1 &int, arg2 &int, arg3 &int, arg4 &int) int
+
+pub fn xg_et_screen_saver(arg0 &Display, arg1 &int, arg2 &int, arg3 &int, arg4 &int) int {
+	return C.XGetScreenSaver(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XGetTransientForHint(arg0 &Display, arg1 Window, arg2 &Window) int
+
+pub fn xg_et_transient_for_hint(arg0 &Display, arg1 Window, arg2 &Window) int {
+	return C.XGetTransientForHint(arg0, arg1, arg2)
+}
+
+fn C.XGetWindowProperty(arg0 &Display, arg1 Window, arg2 Atom, arg3 int, arg4 int, arg5 int, arg6 Atom, arg7 &Atom, arg8 &int, arg9 &u32, arg10 &u32, arg11 &&u8) int
+
+pub fn xg_et_window_property(arg0 &Display, arg1 Window, arg2 Atom, arg3 int, arg4 int, arg5 int, arg6 Atom, arg7 &Atom, arg8 &int, arg9 &u32, arg10 &u32, arg11 &&u8) int {
+	return C.XGetWindowProperty(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)
+}
+
+fn C.XGetWindowAttributes(arg0 &Display, arg1 Window, arg2 &XWindowAttributes) int
+
+pub fn xg_et_window_attributes(arg0 &Display, arg1 Window, arg2 &XWindowAttributes) int {
+	return C.XGetWindowAttributes(arg0, arg1, arg2)
+}
+
+fn C.XGrabButton(arg0 &Display, arg1 u32, arg2 u32, arg3 Window, arg4 int, arg5 u32, arg6 int, arg7 int, arg8 Window, arg9 Cursor) int
+
+pub fn xg_rab_button(arg0 &Display, arg1 u32, arg2 u32, arg3 Window, arg4 int, arg5 u32, arg6 int, arg7 int, arg8 Window, arg9 Cursor) int {
+	return C.XGrabButton(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+}
+
+fn C.XGrabKey(arg0 &Display, arg1 int, arg2 u32, arg3 Window, arg4 int, arg5 int, arg6 int) int
+
+pub fn xg_rab_key(arg0 &Display, arg1 int, arg2 u32, arg3 Window, arg4 int, arg5 int, arg6 int) int {
+	return C.XGrabKey(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
+}
+
+fn C.XGrabKeyboard(arg0 &Display, arg1 Window, arg2 int, arg3 int, arg4 int, arg5 Time) int
+
+pub fn xg_rab_keyboard(arg0 &Display, arg1 Window, arg2 int, arg3 int, arg4 int, arg5 Time) int {
+	return C.XGrabKeyboard(arg0, arg1, arg2, arg3, arg4, arg5)
+}
+
+fn C.XGrabPointer(arg0 &Display, arg1 Window, arg2 int, arg3 u32, arg4 int, arg5 int, arg6 Window, arg7 Cursor, arg8 Time) int
+
+pub fn xg_rab_pointer(arg0 &Display, arg1 Window, arg2 int, arg3 u32, arg4 int, arg5 int, arg6 Window, arg7 Cursor, arg8 Time) int {
+	return C.XGrabPointer(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+}
+
+fn C.XGrabServer(arg0 &Display) int
+
+pub fn xg_rab_server(arg0 &Display) int {
+	return C.XGrabServer(arg0)
+}
+
+fn C.XHeightMMOfScreen(arg0 &Screen) int
+
+pub fn xh_eight_mm_of_screen(arg0 &Screen) int {
+	return C.XHeightMMOfScreen(arg0)
+}
+
+fn C.XHeightOfScreen(arg0 &Screen) int
+
+pub fn xh_eight_of_screen(arg0 &Screen) int {
+	return C.XHeightOfScreen(arg0)
+}
+
+fn C.XIfEvent(arg0 &Display, arg1 &XEvent, arg2 fn (&Display, &XEvent, XPointer) i32, arg3 XPointer) int
+
+pub fn xi_f_event(arg0 &Display, arg1 &XEvent, arg2 fn (&Display, &XEvent, XPointer) i32, arg3 XPointer) int {
+	return C.XIfEvent(arg0, arg1, arg2, arg3)
+}
+
+fn C.XImageByteOrder(arg0 &Display) int
+
+pub fn xi_mage_byte_order(arg0 &Display) int {
+	return C.XImageByteOrder(arg0)
+}
+
+fn C.XInstallColormap(arg0 &Display, arg1 Colormap) int
+
+pub fn xi_nstall_colormap(arg0 &Display, arg1 Colormap) int {
+	return C.XInstallColormap(arg0, arg1)
+}
+
+fn C.XKeysymToKeycode(arg0 &Display, arg1 KeySym) KeyCode
+
+pub fn xk_eysym_to_keycode(arg0 &Display, arg1 KeySym) KeyCode {
+	return C.XKeysymToKeycode(arg0, arg1)
+}
+
+fn C.XKillClient(arg0 &Display, arg1 XID) int
+
+pub fn xk_ill_client(arg0 &Display, arg1 XID) int {
+	return C.XKillClient(arg0, arg1)
+}
+
+fn C.XLookupColor(arg0 &Display, arg1 Colormap, arg2 &char, arg3 &XColor, arg4 &XColor) int
+
+pub fn xl_ookup_color(arg0 &Display, arg1 Colormap, arg2 &char, arg3 &XColor, arg4 &XColor) int {
+	return C.XLookupColor(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XLowerWindow(arg0 &Display, arg1 Window) int
+
+pub fn xl_ower_window(arg0 &Display, arg1 Window) int {
+	return C.XLowerWindow(arg0, arg1)
+}
+
+fn C.XMapRaised(arg0 &Display, arg1 Window) int
+
+pub fn xm_ap_raised(arg0 &Display, arg1 Window) int {
+	return C.XMapRaised(arg0, arg1)
+}
+
+fn C.XMapSubwindows(arg0 &Display, arg1 Window) int
+
+pub fn xm_ap_subwindows(arg0 &Display, arg1 Window) int {
+	return C.XMapSubwindows(arg0, arg1)
+}
+
+fn C.XMapWindow(arg0 &Display, arg1 Window) int
+
+pub fn xm_ap_window(arg0 &Display, arg1 Window) int {
+	return C.XMapWindow(arg0, arg1)
+}
+
+fn C.XMaskEvent(arg0 &Display, arg1 int, arg2 &XEvent) int
+
+pub fn xm_ask_event(arg0 &Display, arg1 int, arg2 &XEvent) int {
+	return C.XMaskEvent(arg0, arg1, arg2)
+}
+
+fn C.XMaxCmapsOfScreen(arg0 &Screen) int
+
+pub fn xm_ax_cmaps_of_screen(arg0 &Screen) int {
+	return C.XMaxCmapsOfScreen(arg0)
+}
+
+fn C.XMinCmapsOfScreen(arg0 &Screen) int
+
+pub fn xm_in_cmaps_of_screen(arg0 &Screen) int {
+	return C.XMinCmapsOfScreen(arg0)
+}
+
+fn C.XMoveResizeWindow(arg0 &Display, arg1 Window, arg2 int, arg3 int, arg4 u32, arg5 u32) int
+
+pub fn xm_ove_resize_window(arg0 &Display, arg1 Window, arg2 int, arg3 int, arg4 u32, arg5 u32) int {
+	return C.XMoveResizeWindow(arg0, arg1, arg2, arg3, arg4, arg5)
+}
+
+fn C.XMoveWindow(arg0 &Display, arg1 Window, arg2 int, arg3 int) int
+
+pub fn xm_ove_window(arg0 &Display, arg1 Window, arg2 int, arg3 int) int {
+	return C.XMoveWindow(arg0, arg1, arg2, arg3)
+}
+
+fn C.XNextEvent(arg0 &Display, arg1 &XEvent) int
+
+pub fn xn_ext_event(arg0 &Display, arg1 &XEvent) int {
+	return C.XNextEvent(arg0, arg1)
+}
+
+fn C.XNoOp(arg0 &Display) int
+
+pub fn xn_o_op(arg0 &Display) int {
+	return C.XNoOp(arg0)
+}
+
+fn C.XParseColor(arg0 &Display, arg1 Colormap, arg2 &char, arg3 &XColor) int
+
+pub fn xp_arse_color(arg0 &Display, arg1 Colormap, arg2 &char, arg3 &XColor) int {
+	return C.XParseColor(arg0, arg1, arg2, arg3)
+}
+
+fn C.XParseGeometry(arg0 &char, arg1 &int, arg2 &int, arg3 &u32, arg4 &u32) int
+
+pub fn xp_arse_geometry(arg0 &char, arg1 &int, arg2 &int, arg3 &u32, arg4 &u32) int {
+	return C.XParseGeometry(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XPeekEvent(arg0 &Display, arg1 &XEvent) int
+
+pub fn xp_eek_event(arg0 &Display, arg1 &XEvent) int {
+	return C.XPeekEvent(arg0, arg1)
+}
+
+fn C.XPeekIfEvent(arg0 &Display, arg1 &XEvent, arg2 fn (&Display, &XEvent, XPointer) i32, arg3 XPointer) int
+
+pub fn xp_eek_if_event(arg0 &Display, arg1 &XEvent, arg2 fn (&Display, &XEvent, XPointer) i32, arg3 XPointer) int {
+	return C.XPeekIfEvent(arg0, arg1, arg2, arg3)
+}
+
+fn C.XPending(arg0 &Display) int
+
+pub fn xp_ending(arg0 &Display) int {
+	return C.XPending(arg0)
+}
+
+fn C.XPlanesOfScreen(arg0 &Screen) int
+
+pub fn xp_lanes_of_screen(arg0 &Screen) int {
+	return C.XPlanesOfScreen(arg0)
+}
+
+fn C.XProtocolRevision(arg0 &Display) int
+
+pub fn xp_rotocol_revision(arg0 &Display) int {
+	return C.XProtocolRevision(arg0)
+}
+
+fn C.XProtocolVersion(arg0 &Display) int
+
+pub fn xp_rotocol_version(arg0 &Display) int {
+	return C.XProtocolVersion(arg0)
+}
+
+fn C.XPutBackEvent(arg0 &Display, arg1 &XEvent) int
+
+pub fn xp_ut_back_event(arg0 &Display, arg1 &XEvent) int {
+	return C.XPutBackEvent(arg0, arg1)
+}
+
+fn C.XPutImage(arg0 &Display, arg1 Drawable, arg2 GC, arg3 &XImage, arg4 int, arg5 int, arg6 int, arg7 int, arg8 u32, arg9 u32) int
+
+pub fn xp_ut_image(arg0 &Display, arg1 Drawable, arg2 GC, arg3 &XImage, arg4 int, arg5 int, arg6 int, arg7 int, arg8 u32, arg9 u32) int {
+	return C.XPutImage(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)
+}
+
+fn C.XQLength(arg0 &Display) int
+
+pub fn xq_length(arg0 &Display) int {
+	return C.XQLength(arg0)
+}
+
+fn C.XQueryBestCursor(arg0 &Display, arg1 Drawable, arg2 u32, arg3 u32, arg4 &u32, arg5 &u32) int
+
+pub fn xq_uery_best_cursor(arg0 &Display, arg1 Drawable, arg2 u32, arg3 u32, arg4 &u32, arg5 &u32) int {
+	return C.XQueryBestCursor(arg0, arg1, arg2, arg3, arg4, arg5)
+}
+
+fn C.XQueryBestSize(arg0 &Display, arg1 int, arg2 Drawable, arg3 u32, arg4 u32, arg5 &u32, arg6 &u32) int
+
+pub fn xq_uery_best_size(arg0 &Display, arg1 int, arg2 Drawable, arg3 u32, arg4 u32, arg5 &u32, arg6 &u32) int {
+	return C.XQueryBestSize(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
+}
+
+fn C.XQueryBestStipple(arg0 &Display, arg1 Drawable, arg2 u32, arg3 u32, arg4 &u32, arg5 &u32) int
+
+pub fn xq_uery_best_stipple(arg0 &Display, arg1 Drawable, arg2 u32, arg3 u32, arg4 &u32, arg5 &u32) int {
+	return C.XQueryBestStipple(arg0, arg1, arg2, arg3, arg4, arg5)
+}
+
+fn C.XQueryBestTile(arg0 &Display, arg1 Drawable, arg2 u32, arg3 u32, arg4 &u32, arg5 &u32) int
+
+pub fn xq_uery_best_tile(arg0 &Display, arg1 Drawable, arg2 u32, arg3 u32, arg4 &u32, arg5 &u32) int {
+	return C.XQueryBestTile(arg0, arg1, arg2, arg3, arg4, arg5)
+}
+
+fn C.XQueryColor(arg0 &Display, arg1 Colormap, arg2 &XColor) int
+
+pub fn xq_uery_color(arg0 &Display, arg1 Colormap, arg2 &XColor) int {
+	return C.XQueryColor(arg0, arg1, arg2)
+}
+
+fn C.XQueryColors(arg0 &Display, arg1 Colormap, arg2 &XColor, arg3 int) int
+
+pub fn xq_uery_colors(arg0 &Display, arg1 Colormap, arg2 &XColor, arg3 int) int {
+	return C.XQueryColors(arg0, arg1, arg2, arg3)
+}
+
+fn C.XQueryExtension(arg0 &Display, arg1 &char, arg2 &int, arg3 &int, arg4 &int) int
+
+pub fn xq_uery_extension(arg0 &Display, arg1 &char, arg2 &int, arg3 &int, arg4 &int) int {
+	return C.XQueryExtension(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XQueryKeymap(arg0 &Display, arg1 &char) int
+
+pub fn xq_uery_keymap(arg0 &Display, arg1 &char) int {
+	return C.XQueryKeymap(arg0, arg1)
+}
+
+fn C.XQueryPointer(arg0 &Display, arg1 Window, arg2 &Window, arg3 &Window, arg4 &int, arg5 &int, arg6 &int, arg7 &int, arg8 &u32) int
+
+pub fn xq_uery_pointer(arg0 &Display, arg1 Window, arg2 &Window, arg3 &Window, arg4 &int, arg5 &int, arg6 &int, arg7 &int, arg8 &u32) int {
+	return C.XQueryPointer(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+}
+
+fn C.XQueryTextExtents(arg0 &Display, arg1 XID, arg2 &char, arg3 int, arg4 &int, arg5 &int, arg6 &int, arg7 &XCharStruct) int
+
+pub fn xq_uery_text_extents(arg0 &Display, arg1 XID, arg2 &char, arg3 int, arg4 &int, arg5 &int, arg6 &int, arg7 &XCharStruct) int {
+	return C.XQueryTextExtents(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
+}
+
+fn C.XQueryTextExtents16(arg0 &Display, arg1 XID, arg2 &XChar2b, arg3 int, arg4 &int, arg5 &int, arg6 &int, arg7 &XCharStruct) int
+
+pub fn xq_uery_text_extents16(arg0 &Display, arg1 XID, arg2 &XChar2b, arg3 int, arg4 &int, arg5 &int, arg6 &int, arg7 &XCharStruct) int {
+	return C.XQueryTextExtents16(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
+}
+
+fn C.XQueryTree(arg0 &Display, arg1 Window, arg2 &Window, arg3 &Window, arg4 &&Window, arg5 &u32) int
+
+pub fn xq_uery_tree(arg0 &Display, arg1 Window, arg2 &Window, arg3 &Window, arg4 &&Window, arg5 &u32) int {
+	return C.XQueryTree(arg0, arg1, arg2, arg3, arg4, arg5)
+}
+
+fn C.XRaiseWindow(arg0 &Display, arg1 Window) int
+
+pub fn xr_aise_window(arg0 &Display, arg1 Window) int {
+	return C.XRaiseWindow(arg0, arg1)
+}
+
+fn C.XReadBitmapFile(arg0 &Display, arg1 Drawable, arg2 &char, arg3 &u32, arg4 &u32, arg5 &Pixmap, arg6 &int, arg7 &int) int
+
+pub fn xr_ead_bitmap_file(arg0 &Display, arg1 Drawable, arg2 &char, arg3 &u32, arg4 &u32, arg5 &Pixmap, arg6 &int, arg7 &int) int {
+	return C.XReadBitmapFile(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
+}
+
+fn C.XReadBitmapFileData(arg0 &char, arg1 &u32, arg2 &u32, arg3 &&u8, arg4 &int, arg5 &int) int
+
+pub fn xr_ead_bitmap_file_data(arg0 &char, arg1 &u32, arg2 &u32, arg3 &&u8, arg4 &int, arg5 &int) int {
+	return C.XReadBitmapFileData(arg0, arg1, arg2, arg3, arg4, arg5)
+}
+
+fn C.XRebindKeysym(arg0 &Display, arg1 KeySym, arg2 &KeySym, arg3 int, arg4 &u8, arg5 int) int
+
+pub fn xr_ebind_keysym(arg0 &Display, arg1 KeySym, arg2 &KeySym, arg3 int, arg4 &u8, arg5 int) int {
+	return C.XRebindKeysym(arg0, arg1, arg2, arg3, arg4, arg5)
+}
+
+fn C.XRecolorCursor(arg0 &Display, arg1 Cursor, arg2 &XColor, arg3 &XColor) int
+
+pub fn xr_ecolor_cursor(arg0 &Display, arg1 Cursor, arg2 &XColor, arg3 &XColor) int {
+	return C.XRecolorCursor(arg0, arg1, arg2, arg3)
+}
+
+fn C.XRefreshKeyboardMapping(arg0 &XMappingEvent) int
+
+pub fn xr_efresh_keyboard_mapping(arg0 &XMappingEvent) int {
+	return C.XRefreshKeyboardMapping(arg0)
+}
+
+fn C.XRemoveFromSaveSet(arg0 &Display, arg1 Window) int
+
+pub fn xr_emove_from_save_set(arg0 &Display, arg1 Window) int {
+	return C.XRemoveFromSaveSet(arg0, arg1)
+}
+
+fn C.XRemoveHost(arg0 &Display, arg1 &XHostAddress) int
+
+pub fn xr_emove_host(arg0 &Display, arg1 &XHostAddress) int {
+	return C.XRemoveHost(arg0, arg1)
+}
+
+fn C.XRemoveHosts(arg0 &Display, arg1 &XHostAddress, arg2 int) int
+
+pub fn xr_emove_hosts(arg0 &Display, arg1 &XHostAddress, arg2 int) int {
+	return C.XRemoveHosts(arg0, arg1, arg2)
+}
+
+fn C.XReparentWindow(arg0 &Display, arg1 Window, arg2 Window, arg3 int, arg4 int) int
+
+pub fn xr_eparent_window(arg0 &Display, arg1 Window, arg2 Window, arg3 int, arg4 int) int {
+	return C.XReparentWindow(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XResetScreenSaver(arg0 &Display) int
+
+pub fn xr_eset_screen_saver(arg0 &Display) int {
+	return C.XResetScreenSaver(arg0)
+}
+
+fn C.XResizeWindow(arg0 &Display, arg1 Window, arg2 u32, arg3 u32) int
+
+pub fn xr_esize_window(arg0 &Display, arg1 Window, arg2 u32, arg3 u32) int {
+	return C.XResizeWindow(arg0, arg1, arg2, arg3)
+}
+
+fn C.XRestackWindows(arg0 &Display, arg1 &Window, arg2 int) int
+
+pub fn xr_estack_windows(arg0 &Display, arg1 &Window, arg2 int) int {
+	return C.XRestackWindows(arg0, arg1, arg2)
+}
+
+fn C.XRotateBuffers(arg0 &Display, arg1 int) int
+
+pub fn xr_otate_buffers(arg0 &Display, arg1 int) int {
+	return C.XRotateBuffers(arg0, arg1)
+}
+
+fn C.XRotateWindowProperties(arg0 &Display, arg1 Window, arg2 &Atom, arg3 int, arg4 int) int
+
+pub fn xr_otate_window_properties(arg0 &Display, arg1 Window, arg2 &Atom, arg3 int, arg4 int) int {
+	return C.XRotateWindowProperties(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XScreenCount(arg0 &Display) int
+
+pub fn xs_creen_count(arg0 &Display) int {
+	return C.XScreenCount(arg0)
+}
+
+fn C.XSelectInput(arg0 &Display, arg1 Window, arg2 int) int
+
+pub fn xs_elect_input(arg0 &Display, arg1 Window, arg2 int) int {
+	return C.XSelectInput(arg0, arg1, arg2)
+}
+
+fn C.XSendEvent(arg0 &Display, arg1 Window, arg2 int, arg3 int, arg4 &XEvent) int
+
+pub fn xs_end_event(arg0 &Display, arg1 Window, arg2 int, arg3 int, arg4 &XEvent) int {
+	return C.XSendEvent(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XSetAccessControl(arg0 &Display, arg1 int) int
+
+pub fn xs_et_access_control(arg0 &Display, arg1 int) int {
+	return C.XSetAccessControl(arg0, arg1)
+}
+
+fn C.XSetArcMode(arg0 &Display, arg1 GC, arg2 int) int
+
+pub fn xs_et_arc_mode(arg0 &Display, arg1 GC, arg2 int) int {
+	return C.XSetArcMode(arg0, arg1, arg2)
+}
+
+fn C.XSetBackground(arg0 &Display, arg1 GC, arg2 u32) int
+
+pub fn xs_et_background(arg0 &Display, arg1 GC, arg2 u32) int {
+	return C.XSetBackground(arg0, arg1, arg2)
+}
+
+fn C.XSetClipMask(arg0 &Display, arg1 GC, arg2 Pixmap) int
+
+pub fn xs_et_clip_mask(arg0 &Display, arg1 GC, arg2 Pixmap) int {
+	return C.XSetClipMask(arg0, arg1, arg2)
+}
+
+fn C.XSetClipOrigin(arg0 &Display, arg1 GC, arg2 int, arg3 int) int
+
+pub fn xs_et_clip_origin(arg0 &Display, arg1 GC, arg2 int, arg3 int) int {
+	return C.XSetClipOrigin(arg0, arg1, arg2, arg3)
+}
+
+fn C.XSetClipRectangles(arg0 &Display, arg1 GC, arg2 int, arg3 int, arg4 &XRectangle, arg5 int, arg6 int) int
+
+pub fn xs_et_clip_rectangles(arg0 &Display, arg1 GC, arg2 int, arg3 int, arg4 &XRectangle, arg5 int, arg6 int) int {
+	return C.XSetClipRectangles(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
+}
+
+fn C.XSetCloseDownMode(arg0 &Display, arg1 int) int
+
+pub fn xs_et_close_down_mode(arg0 &Display, arg1 int) int {
+	return C.XSetCloseDownMode(arg0, arg1)
+}
+
+fn C.XSetCommand(arg0 &Display, arg1 Window, arg2 &&u8, arg3 int) int
+
+pub fn xs_et_command(arg0 &Display, arg1 Window, arg2 &&u8, arg3 int) int {
+	return C.XSetCommand(arg0, arg1, arg2, arg3)
+}
+
+fn C.XSetDashes(arg0 &Display, arg1 GC, arg2 int, arg3 &char, arg4 int) int
+
+pub fn xs_et_dashes(arg0 &Display, arg1 GC, arg2 int, arg3 &char, arg4 int) int {
+	return C.XSetDashes(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XSetFillRule(arg0 &Display, arg1 GC, arg2 int) int
+
+pub fn xs_et_fill_rule(arg0 &Display, arg1 GC, arg2 int) int {
+	return C.XSetFillRule(arg0, arg1, arg2)
+}
+
+fn C.XSetFillStyle(arg0 &Display, arg1 GC, arg2 int) int
+
+pub fn xs_et_fill_style(arg0 &Display, arg1 GC, arg2 int) int {
+	return C.XSetFillStyle(arg0, arg1, arg2)
+}
+
+fn C.XSetFont(arg0 &Display, arg1 GC, arg2 Font) int
+
+pub fn xs_et_font(arg0 &Display, arg1 GC, arg2 Font) int {
+	return C.XSetFont(arg0, arg1, arg2)
+}
+
+fn C.XSetFontPath(arg0 &Display, arg1 &&u8, arg2 int) int
+
+pub fn xs_et_font_path(arg0 &Display, arg1 &&u8, arg2 int) int {
+	return C.XSetFontPath(arg0, arg1, arg2)
+}
+
+fn C.XSetForeground(arg0 &Display, arg1 GC, arg2 u32) int
+
+pub fn xs_et_foreground(arg0 &Display, arg1 GC, arg2 u32) int {
+	return C.XSetForeground(arg0, arg1, arg2)
+}
+
+fn C.XSetFunction(arg0 &Display, arg1 GC, arg2 int) int
+
+pub fn xs_et_function(arg0 &Display, arg1 GC, arg2 int) int {
+	return C.XSetFunction(arg0, arg1, arg2)
+}
+
+fn C.XSetGraphicsExposures(arg0 &Display, arg1 GC, arg2 int) int
+
+pub fn xs_et_graphics_exposures(arg0 &Display, arg1 GC, arg2 int) int {
+	return C.XSetGraphicsExposures(arg0, arg1, arg2)
+}
+
+fn C.XSetIconName(arg0 &Display, arg1 Window, arg2 &char) int
+
+pub fn xs_et_icon_name(arg0 &Display, arg1 Window, arg2 &char) int {
+	return C.XSetIconName(arg0, arg1, arg2)
+}
+
+fn C.XSetInputFocus(arg0 &Display, arg1 Window, arg2 int, arg3 Time) int
+
+pub fn xs_et_input_focus(arg0 &Display, arg1 Window, arg2 int, arg3 Time) int {
+	return C.XSetInputFocus(arg0, arg1, arg2, arg3)
+}
+
+fn C.XSetLineAttributes(arg0 &Display, arg1 GC, arg2 u32, arg3 int, arg4 int, arg5 int) int
+
+pub fn xs_et_line_attributes(arg0 &Display, arg1 GC, arg2 u32, arg3 int, arg4 int, arg5 int) int {
+	return C.XSetLineAttributes(arg0, arg1, arg2, arg3, arg4, arg5)
+}
+
+fn C.XSetModifierMapping(arg0 &Display, arg1 &XModifierKeymap) int
+
+pub fn xs_et_modifier_mapping(arg0 &Display, arg1 &XModifierKeymap) int {
+	return C.XSetModifierMapping(arg0, arg1)
+}
+
+fn C.XSetPlaneMask(arg0 &Display, arg1 GC, arg2 u32) int
+
+pub fn xs_et_plane_mask(arg0 &Display, arg1 GC, arg2 u32) int {
+	return C.XSetPlaneMask(arg0, arg1, arg2)
+}
+
+fn C.XSetPointerMapping(arg0 &Display, arg1 &u8, arg2 int) int
+
+pub fn xs_et_pointer_mapping(arg0 &Display, arg1 &u8, arg2 int) int {
+	return C.XSetPointerMapping(arg0, arg1, arg2)
+}
+
+fn C.XSetScreenSaver(arg0 &Display, arg1 int, arg2 int, arg3 int, arg4 int) int
+
+pub fn xs_et_screen_saver(arg0 &Display, arg1 int, arg2 int, arg3 int, arg4 int) int {
+	return C.XSetScreenSaver(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XSetSelectionOwner(arg0 &Display, arg1 Atom, arg2 Window, arg3 Time) int
+
+pub fn xs_et_selection_owner(arg0 &Display, arg1 Atom, arg2 Window, arg3 Time) int {
+	return C.XSetSelectionOwner(arg0, arg1, arg2, arg3)
+}
+
+fn C.XSetState(arg0 &Display, arg1 GC, arg2 u32, arg3 u32, arg4 int, arg5 u32) int
+
+pub fn xs_et_state(arg0 &Display, arg1 GC, arg2 u32, arg3 u32, arg4 int, arg5 u32) int {
+	return C.XSetState(arg0, arg1, arg2, arg3, arg4, arg5)
+}
+
+fn C.XSetStipple(arg0 &Display, arg1 GC, arg2 Pixmap) int
+
+pub fn xs_et_stipple(arg0 &Display, arg1 GC, arg2 Pixmap) int {
+	return C.XSetStipple(arg0, arg1, arg2)
+}
+
+fn C.XSetSubwindowMode(arg0 &Display, arg1 GC, arg2 int) int
+
+pub fn xs_et_subwindow_mode(arg0 &Display, arg1 GC, arg2 int) int {
+	return C.XSetSubwindowMode(arg0, arg1, arg2)
+}
+
+fn C.XSetTSOrigin(arg0 &Display, arg1 GC, arg2 int, arg3 int) int
+
+pub fn xs_et_ts_origin(arg0 &Display, arg1 GC, arg2 int, arg3 int) int {
+	return C.XSetTSOrigin(arg0, arg1, arg2, arg3)
+}
+
+fn C.XSetTile(arg0 &Display, arg1 GC, arg2 Pixmap) int
+
+pub fn xs_et_tile(arg0 &Display, arg1 GC, arg2 Pixmap) int {
+	return C.XSetTile(arg0, arg1, arg2)
+}
+
+fn C.XSetWindowBackground(arg0 &Display, arg1 Window, arg2 u32) int
+
+pub fn xs_et_window_background(arg0 &Display, arg1 Window, arg2 u32) int {
+	return C.XSetWindowBackground(arg0, arg1, arg2)
+}
+
+fn C.XSetWindowBackgroundPixmap(arg0 &Display, arg1 Window, arg2 Pixmap) int
+
+pub fn xs_et_window_background_pixmap(arg0 &Display, arg1 Window, arg2 Pixmap) int {
+	return C.XSetWindowBackgroundPixmap(arg0, arg1, arg2)
+}
+
+fn C.XSetWindowBorder(arg0 &Display, arg1 Window, arg2 u32) int
+
+pub fn xs_et_window_border(arg0 &Display, arg1 Window, arg2 u32) int {
+	return C.XSetWindowBorder(arg0, arg1, arg2)
+}
+
+fn C.XSetWindowBorderPixmap(arg0 &Display, arg1 Window, arg2 Pixmap) int
+
+pub fn xs_et_window_border_pixmap(arg0 &Display, arg1 Window, arg2 Pixmap) int {
+	return C.XSetWindowBorderPixmap(arg0, arg1, arg2)
+}
+
+fn C.XSetWindowBorderWidth(arg0 &Display, arg1 Window, arg2 u32) int
+
+pub fn xs_et_window_border_width(arg0 &Display, arg1 Window, arg2 u32) int {
+	return C.XSetWindowBorderWidth(arg0, arg1, arg2)
+}
+
+fn C.XSetWindowColormap(arg0 &Display, arg1 Window, arg2 Colormap) int
+
+pub fn xs_et_window_colormap(arg0 &Display, arg1 Window, arg2 Colormap) int {
+	return C.XSetWindowColormap(arg0, arg1, arg2)
+}
+
+fn C.XStoreBuffer(arg0 &Display, arg1 &char, arg2 int, arg3 int) int
+
+pub fn xs_tore_buffer(arg0 &Display, arg1 &char, arg2 int, arg3 int) int {
+	return C.XStoreBuffer(arg0, arg1, arg2, arg3)
+}
+
+fn C.XStoreBytes(arg0 &Display, arg1 &char, arg2 int) int
+
+pub fn xs_tore_bytes(arg0 &Display, arg1 &char, arg2 int) int {
+	return C.XStoreBytes(arg0, arg1, arg2)
+}
+
+fn C.XStoreColor(arg0 &Display, arg1 Colormap, arg2 &XColor) int
+
+pub fn xs_tore_color(arg0 &Display, arg1 Colormap, arg2 &XColor) int {
+	return C.XStoreColor(arg0, arg1, arg2)
+}
+
+fn C.XStoreColors(arg0 &Display, arg1 Colormap, arg2 &XColor, arg3 int) int
+
+pub fn xs_tore_colors(arg0 &Display, arg1 Colormap, arg2 &XColor, arg3 int) int {
+	return C.XStoreColors(arg0, arg1, arg2, arg3)
+}
+
+fn C.XStoreName(arg0 &Display, arg1 Window, arg2 &char) int
+
+pub fn xs_tore_name(arg0 &Display, arg1 Window, arg2 &char) int {
+	return C.XStoreName(arg0, arg1, arg2)
+}
+
+fn C.XStoreNamedColor(arg0 &Display, arg1 Colormap, arg2 &char, arg3 u32, arg4 int) int
+
+pub fn xs_tore_named_color(arg0 &Display, arg1 Colormap, arg2 &char, arg3 u32, arg4 int) int {
+	return C.XStoreNamedColor(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XSync(arg0 &Display, arg1 int) int
+
+pub fn xs_ync(arg0 &Display, arg1 int) int {
+	return C.XSync(arg0, arg1)
+}
+
+fn C.XTextExtents(arg0 &XFontStruct, arg1 &char, arg2 int, arg3 &int, arg4 &int, arg5 &int, arg6 &XCharStruct) int
+
+pub fn xt_ext_extents(arg0 &XFontStruct, arg1 &char, arg2 int, arg3 &int, arg4 &int, arg5 &int, arg6 &XCharStruct) int {
+	return C.XTextExtents(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
+}
+
+fn C.XTextExtents16(arg0 &XFontStruct, arg1 &XChar2b, arg2 int, arg3 &int, arg4 &int, arg5 &int, arg6 &XCharStruct) int
+
+pub fn xt_ext_extents16(arg0 &XFontStruct, arg1 &XChar2b, arg2 int, arg3 &int, arg4 &int, arg5 &int, arg6 &XCharStruct) int {
+	return C.XTextExtents16(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
+}
+
+fn C.XTextWidth(arg0 &XFontStruct, arg1 &char, arg2 int) int
+
+pub fn xt_ext_width(arg0 &XFontStruct, arg1 &char, arg2 int) int {
+	return C.XTextWidth(arg0, arg1, arg2)
+}
+
+fn C.XTextWidth16(arg0 &XFontStruct, arg1 &XChar2b, arg2 int) int
+
+pub fn xt_ext_width16(arg0 &XFontStruct, arg1 &XChar2b, arg2 int) int {
+	return C.XTextWidth16(arg0, arg1, arg2)
+}
+
+fn C.XTranslateCoordinates(arg0 &Display, arg1 Window, arg2 Window, arg3 int, arg4 int, arg5 &int, arg6 &int, arg7 &Window) int
+
+pub fn xt_ranslate_coordinates(arg0 &Display, arg1 Window, arg2 Window, arg3 int, arg4 int, arg5 &int, arg6 &int, arg7 &Window) int {
+	return C.XTranslateCoordinates(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
+}
+
+fn C.XUndefineCursor(arg0 &Display, arg1 Window) int
+
+pub fn xu_ndefine_cursor(arg0 &Display, arg1 Window) int {
+	return C.XUndefineCursor(arg0, arg1)
+}
+
+fn C.XUngrabButton(arg0 &Display, arg1 u32, arg2 u32, arg3 Window) int
+
+pub fn xu_ngrab_button(arg0 &Display, arg1 u32, arg2 u32, arg3 Window) int {
+	return C.XUngrabButton(arg0, arg1, arg2, arg3)
+}
+
+fn C.XUngrabKey(arg0 &Display, arg1 int, arg2 u32, arg3 Window) int
+
+pub fn xu_ngrab_key(arg0 &Display, arg1 int, arg2 u32, arg3 Window) int {
+	return C.XUngrabKey(arg0, arg1, arg2, arg3)
+}
+
+fn C.XUngrabKeyboard(arg0 &Display, arg1 Time) int
+
+pub fn xu_ngrab_keyboard(arg0 &Display, arg1 Time) int {
+	return C.XUngrabKeyboard(arg0, arg1)
+}
+
+fn C.XUngrabPointer(arg0 &Display, arg1 Time) int
+
+pub fn xu_ngrab_pointer(arg0 &Display, arg1 Time) int {
+	return C.XUngrabPointer(arg0, arg1)
+}
+
+fn C.XUngrabServer(arg0 &Display) int
+
+pub fn xu_ngrab_server(arg0 &Display) int {
+	return C.XUngrabServer(arg0)
+}
+
+fn C.XUninstallColormap(arg0 &Display, arg1 Colormap) int
+
+pub fn xu_ninstall_colormap(arg0 &Display, arg1 Colormap) int {
+	return C.XUninstallColormap(arg0, arg1)
+}
+
+fn C.XUnloadFont(arg0 &Display, arg1 Font) int
+
+pub fn xu_nload_font(arg0 &Display, arg1 Font) int {
+	return C.XUnloadFont(arg0, arg1)
+}
+
+fn C.XUnmapSubwindows(arg0 &Display, arg1 Window) int
+
+pub fn xu_nmap_subwindows(arg0 &Display, arg1 Window) int {
+	return C.XUnmapSubwindows(arg0, arg1)
+}
+
+fn C.XUnmapWindow(arg0 &Display, arg1 Window) int
+
+pub fn xu_nmap_window(arg0 &Display, arg1 Window) int {
+	return C.XUnmapWindow(arg0, arg1)
+}
+
+fn C.XVendorRelease(arg0 &Display) int
+
+pub fn xv_endor_release(arg0 &Display) int {
+	return C.XVendorRelease(arg0)
+}
+
+fn C.XWarpPointer(arg0 &Display, arg1 Window, arg2 Window, arg3 int, arg4 int, arg5 u32, arg6 u32, arg7 int, arg8 int) int
+
+pub fn xw_arp_pointer(arg0 &Display, arg1 Window, arg2 Window, arg3 int, arg4 int, arg5 u32, arg6 u32, arg7 int, arg8 int) int {
+	return C.XWarpPointer(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+}
+
+fn C.XWidthMMOfScreen(arg0 &Screen) int
+
+pub fn xw_idth_mm_of_screen(arg0 &Screen) int {
+	return C.XWidthMMOfScreen(arg0)
+}
+
+fn C.XWidthOfScreen(arg0 &Screen) int
+
+pub fn xw_idth_of_screen(arg0 &Screen) int {
+	return C.XWidthOfScreen(arg0)
+}
+
+fn C.XWindowEvent(arg0 &Display, arg1 Window, arg2 int, arg3 &XEvent) int
+
+pub fn xw_indow_event(arg0 &Display, arg1 Window, arg2 int, arg3 &XEvent) int {
+	return C.XWindowEvent(arg0, arg1, arg2, arg3)
+}
+
+fn C.XWriteBitmapFile(arg0 &Display, arg1 &char, arg2 Pixmap, arg3 u32, arg4 u32, arg5 int, arg6 int) int
+
+pub fn xw_rite_bitmap_file(arg0 &Display, arg1 &char, arg2 Pixmap, arg3 u32, arg4 u32, arg5 int, arg6 int) int {
+	return C.XWriteBitmapFile(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
+}
+
+fn C.XSupportsLocale() int
+
+pub fn xs_upports_locale() int {
+	return C.XSupportsLocale()
+}
+
+fn C.XSetLocaleModifiers(arg0 &char) &char
+
+pub fn xs_et_locale_modifiers(arg0 &char) ?&char {
+	res :=  C.XSetLocaleModifiers(arg0)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XOpenOM(arg0 &Display, arg1 &C.XrmHashBucketRec, arg2 &char, arg3 &char) XOM
+
+pub fn xo_pen_om(arg0 &Display, arg1 &C.XrmHashBucketRec, arg2 &char, arg3 &char) XOM {
+	return C.XOpenOM(arg0, arg1, arg2, arg3)
+}
+
+fn C.XCloseOM(arg0 XOM) int
+
+pub fn xc_lose_om(arg0 XOM) int {
+	return C.XCloseOM(arg0)
+}
+
+@[c2v_variadic]
+fn C.XSetOMValues(arg0 XOM) &char
+
+pub fn (self XOM) xs_et_om_values() ?&char {
+	res :=  C.XSetOMValues(self)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+@[c2v_variadic]
+fn C.XGetOMValues(arg0 XOM) &char
+
+pub fn (self XOM) xg_et_om_values() ?&char {
+	res :=  C.XGetOMValues(self)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XDisplayOfOM(arg0 XOM) &Display
+
+pub fn (self XOM) xd_isplay_of_om() ?&Display {
+	res :=  C.XDisplayOfOM(self)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XLocaleOfOM(arg0 XOM) &char
+
+pub fn (self XOM) xl_ocale_of_om() ?&char {
+	res :=  C.XLocaleOfOM(self)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+@[c2v_variadic]
+fn C.XCreateOC(arg0 XOM) XOC
+
+pub fn xc_reate_oc(arg0 XOM) XOC {
+	return C.XCreateOC(arg0)
+}
+
+fn C.XDestroyOC(arg0 XOC)
+
+pub fn xd_estroy_oc(arg0 XOC) {
+	C.XDestroyOC(arg0)
+}
+
+fn C.XOMOfOC(arg0 XOC) XOM
+
+pub fn xom_of_oc(arg0 XOC) XOM {
+	return C.XOMOfOC(arg0)
+}
+
+@[c2v_variadic]
+fn C.XSetOCValues(arg0 XOC) &char
+
+pub fn (self XOC) xs_et_oc_values() ?&char {
+	res :=  C.XSetOCValues(self)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+@[c2v_variadic]
+fn C.XGetOCValues(arg0 XOC) &char
+
+pub fn (self XOC) xg_et_oc_values() ?&char {
+	res :=  C.XGetOCValues(self)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XCreateFontSet(arg0 &Display, arg1 &char, arg2 &&&char, arg3 &int, arg4 &&u8) XFontSet
+
+pub fn xc_reate_font_set(arg0 &Display, arg1 &char, arg2 &&&char, arg3 &int, arg4 &&u8) XFontSet {
+	return C.XCreateFontSet(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XFreeFontSet(arg0 &Display, arg1 XFontSet)
+
+pub fn xf_ree_font_set(arg0 &Display, arg1 XFontSet) {
+	C.XFreeFontSet(arg0, arg1)
+}
+
+fn C.XFontsOfFontSet(arg0 XFontSet, arg1 &&&XFontStruct, arg2 &&&char) int
+
+pub fn xf_onts_of_font_set(arg0 XFontSet, arg1 &&&XFontStruct, arg2 &&&char) int {
+	return C.XFontsOfFontSet(arg0, arg1, arg2)
+}
+
+fn C.XBaseFontNameListOfFontSet(arg0 XFontSet) &char
+
+pub fn (self XFontSet) xb_ase_font_name_list_of_font_set() ?&char {
+	res :=  C.XBaseFontNameListOfFontSet(self)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XLocaleOfFontSet(arg0 XFontSet) &char
+
+pub fn (self XFontSet) xl_ocale_of_font_set() ?&char {
+	res :=  C.XLocaleOfFontSet(self)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XContextDependentDrawing(arg0 XFontSet) int
+
+pub fn xc_ontext_dependent_drawing(arg0 XFontSet) int {
+	return C.XContextDependentDrawing(arg0)
+}
+
+fn C.XDirectionalDependentDrawing(arg0 XFontSet) int
+
+pub fn xd_irectional_dependent_drawing(arg0 XFontSet) int {
+	return C.XDirectionalDependentDrawing(arg0)
+}
+
+fn C.XContextualDrawing(arg0 XFontSet) int
+
+pub fn xc_ontextual_drawing(arg0 XFontSet) int {
+	return C.XContextualDrawing(arg0)
+}
+
+fn C.XExtentsOfFontSet(arg0 XFontSet) &XFontSetExtents
+
+pub fn (self XFontSet) xe_xtents_of_font_set() ?&XFontSetExtents {
+	res :=  C.XExtentsOfFontSet(self)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XmbTextEscapement(arg0 XFontSet, arg1 &char, arg2 int) int
+
+pub fn xmb_text_escapement(arg0 XFontSet, arg1 &char, arg2 int) int {
+	return C.XmbTextEscapement(arg0, arg1, arg2)
+}
+
+fn C.XwcTextEscapement(arg0 XFontSet, arg1 &Wchar_t, arg2 int) int
+
+pub fn xwc_text_escapement(arg0 XFontSet, arg1 &Wchar_t, arg2 int) int {
+	return C.XwcTextEscapement(arg0, arg1, arg2)
+}
+
+fn C.Xutf8TextEscapement(arg0 XFontSet, arg1 &char, arg2 int) int
+
+pub fn xutf8_text_escapement(arg0 XFontSet, arg1 &char, arg2 int) int {
+	return C.Xutf8TextEscapement(arg0, arg1, arg2)
+}
+
+fn C.XmbTextExtents(arg0 XFontSet, arg1 &char, arg2 int, arg3 &XRectangle, arg4 &XRectangle) int
+
+pub fn xmb_text_extents(arg0 XFontSet, arg1 &char, arg2 int, arg3 &XRectangle, arg4 &XRectangle) int {
+	return C.XmbTextExtents(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XwcTextExtents(arg0 XFontSet, arg1 &Wchar_t, arg2 int, arg3 &XRectangle, arg4 &XRectangle) int
+
+pub fn xwc_text_extents(arg0 XFontSet, arg1 &Wchar_t, arg2 int, arg3 &XRectangle, arg4 &XRectangle) int {
+	return C.XwcTextExtents(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.Xutf8TextExtents(arg0 XFontSet, arg1 &char, arg2 int, arg3 &XRectangle, arg4 &XRectangle) int
+
+pub fn xutf8_text_extents(arg0 XFontSet, arg1 &char, arg2 int, arg3 &XRectangle, arg4 &XRectangle) int {
+	return C.Xutf8TextExtents(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XmbTextPerCharExtents(arg0 XFontSet, arg1 &char, arg2 int, arg3 &XRectangle, arg4 &XRectangle, arg5 int, arg6 &int, arg7 &XRectangle, arg8 &XRectangle) int
+
+pub fn xmb_text_per_char_extents(arg0 XFontSet, arg1 &char, arg2 int, arg3 &XRectangle, arg4 &XRectangle, arg5 int, arg6 &int, arg7 &XRectangle, arg8 &XRectangle) int {
+	return C.XmbTextPerCharExtents(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+}
+
+fn C.XwcTextPerCharExtents(arg0 XFontSet, arg1 &Wchar_t, arg2 int, arg3 &XRectangle, arg4 &XRectangle, arg5 int, arg6 &int, arg7 &XRectangle, arg8 &XRectangle) int
+
+pub fn xwc_text_per_char_extents(arg0 XFontSet, arg1 &Wchar_t, arg2 int, arg3 &XRectangle, arg4 &XRectangle, arg5 int, arg6 &int, arg7 &XRectangle, arg8 &XRectangle) int {
+	return C.XwcTextPerCharExtents(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+}
+
+fn C.Xutf8TextPerCharExtents(arg0 XFontSet, arg1 &char, arg2 int, arg3 &XRectangle, arg4 &XRectangle, arg5 int, arg6 &int, arg7 &XRectangle, arg8 &XRectangle) int
+
+pub fn xutf8_text_per_char_extents(arg0 XFontSet, arg1 &char, arg2 int, arg3 &XRectangle, arg4 &XRectangle, arg5 int, arg6 &int, arg7 &XRectangle, arg8 &XRectangle) int {
+	return C.Xutf8TextPerCharExtents(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+}
+
+fn C.XmbDrawText(arg0 &Display, arg1 Drawable, arg2 GC, arg3 int, arg4 int, arg5 &XmbTextItem, arg6 int)
+
+pub fn xmb_draw_text(arg0 &Display, arg1 Drawable, arg2 GC, arg3 int, arg4 int, arg5 &XmbTextItem, arg6 int) {
+	C.XmbDrawText(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
+}
+
+fn C.XwcDrawText(arg0 &Display, arg1 Drawable, arg2 GC, arg3 int, arg4 int, arg5 &XwcTextItem, arg6 int)
+
+pub fn xwc_draw_text(arg0 &Display, arg1 Drawable, arg2 GC, arg3 int, arg4 int, arg5 &XwcTextItem, arg6 int) {
+	C.XwcDrawText(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
+}
+
+fn C.Xutf8DrawText(arg0 &Display, arg1 Drawable, arg2 GC, arg3 int, arg4 int, arg5 &XmbTextItem, arg6 int)
+
+pub fn xutf8_draw_text(arg0 &Display, arg1 Drawable, arg2 GC, arg3 int, arg4 int, arg5 &XmbTextItem, arg6 int) {
+	C.Xutf8DrawText(arg0, arg1, arg2, arg3, arg4, arg5, arg6)
+}
+
+fn C.XmbDrawString(arg0 &Display, arg1 Drawable, arg2 XFontSet, arg3 GC, arg4 int, arg5 int, arg6 &char, arg7 int)
+
+pub fn xmb_draw_string(arg0 &Display, arg1 Drawable, arg2 XFontSet, arg3 GC, arg4 int, arg5 int, arg6 &char, arg7 int) {
+	C.XmbDrawString(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
+}
+
+fn C.XwcDrawString(arg0 &Display, arg1 Drawable, arg2 XFontSet, arg3 GC, arg4 int, arg5 int, arg6 &Wchar_t, arg7 int)
+
+pub fn xwc_draw_string(arg0 &Display, arg1 Drawable, arg2 XFontSet, arg3 GC, arg4 int, arg5 int, arg6 &Wchar_t, arg7 int) {
+	C.XwcDrawString(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
+}
+
+fn C.Xutf8DrawString(arg0 &Display, arg1 Drawable, arg2 XFontSet, arg3 GC, arg4 int, arg5 int, arg6 &char, arg7 int)
+
+pub fn xutf8_draw_string(arg0 &Display, arg1 Drawable, arg2 XFontSet, arg3 GC, arg4 int, arg5 int, arg6 &char, arg7 int) {
+	C.Xutf8DrawString(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
+}
+
+fn C.XmbDrawImageString(arg0 &Display, arg1 Drawable, arg2 XFontSet, arg3 GC, arg4 int, arg5 int, arg6 &char, arg7 int)
+
+pub fn xmb_draw_image_string(arg0 &Display, arg1 Drawable, arg2 XFontSet, arg3 GC, arg4 int, arg5 int, arg6 &char, arg7 int) {
+	C.XmbDrawImageString(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
+}
+
+fn C.XwcDrawImageString(arg0 &Display, arg1 Drawable, arg2 XFontSet, arg3 GC, arg4 int, arg5 int, arg6 &Wchar_t, arg7 int)
+
+pub fn xwc_draw_image_string(arg0 &Display, arg1 Drawable, arg2 XFontSet, arg3 GC, arg4 int, arg5 int, arg6 &Wchar_t, arg7 int) {
+	C.XwcDrawImageString(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
+}
+
+fn C.Xutf8DrawImageString(arg0 &Display, arg1 Drawable, arg2 XFontSet, arg3 GC, arg4 int, arg5 int, arg6 &char, arg7 int)
+
+pub fn xutf8_draw_image_string(arg0 &Display, arg1 Drawable, arg2 XFontSet, arg3 GC, arg4 int, arg5 int, arg6 &char, arg7 int) {
+	C.Xutf8DrawImageString(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
+}
+
+fn C.XOpenIM(arg0 &Display, arg1 &C.XrmHashBucketRec, arg2 &char, arg3 &char) XIM
+
+pub fn xo_pen_im(arg0 &Display, arg1 &C.XrmHashBucketRec, arg2 &char, arg3 &char) XIM {
+	return C.XOpenIM(arg0, arg1, arg2, arg3)
+}
+
+fn C.XCloseIM(arg0 XIM) int
+
+pub fn xc_lose_im(arg0 XIM) int {
+	return C.XCloseIM(arg0)
+}
+
+@[c2v_variadic]
+fn C.XGetIMValues(arg0 XIM) &char
+
+pub fn (self XIM) xg_et_im_values() ?&char {
+	res :=  C.XGetIMValues(self)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+@[c2v_variadic]
+fn C.XSetIMValues(arg0 XIM) &char
+
+pub fn (self XIM) xs_et_im_values() ?&char {
+	res :=  C.XSetIMValues(self)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XDisplayOfIM(arg0 XIM) &Display
+
+pub fn (self XIM) xd_isplay_of_im() ?&Display {
+	res :=  C.XDisplayOfIM(self)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XLocaleOfIM(arg0 XIM) &char
+
+pub fn (self XIM) xl_ocale_of_im() ?&char {
+	res :=  C.XLocaleOfIM(self)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+@[c2v_variadic]
+fn C.XCreateIC(arg0 XIM) XIC
+
+pub fn xc_reate_ic(arg0 XIM) XIC {
+	return C.XCreateIC(arg0)
+}
+
+fn C.XDestroyIC(arg0 XIC)
+
+pub fn xd_estroy_ic(arg0 XIC) {
+	C.XDestroyIC(arg0)
+}
+
+fn C.XSetICFocus(arg0 XIC)
+
+pub fn xs_et_ic_focus(arg0 XIC) {
+	C.XSetICFocus(arg0)
+}
+
+fn C.XUnsetICFocus(arg0 XIC)
+
+pub fn xu_nset_ic_focus(arg0 XIC) {
+	C.XUnsetICFocus(arg0)
+}
+
+fn C.XwcResetIC(arg0 XIC) &Wchar_t
+
+pub fn (self XIC) xwc_reset_ic() ?&Wchar_t {
+	res :=  C.XwcResetIC(self)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XmbResetIC(arg0 XIC) &char
+
+pub fn (self XIC) xmb_reset_ic() ?&char {
+	res :=  C.XmbResetIC(self)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.Xutf8ResetIC(arg0 XIC) &char
+
+pub fn (self XIC) xutf8_reset_ic() ?&char {
+	res :=  C.Xutf8ResetIC(self)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+@[c2v_variadic]
+fn C.XSetICValues(arg0 XIC) &char
+
+pub fn (self XIC) xs_et_ic_values() ?&char {
+	res :=  C.XSetICValues(self)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+@[c2v_variadic]
+fn C.XGetICValues(arg0 XIC) &char
+
+pub fn (self XIC) xg_et_ic_values() ?&char {
+	res :=  C.XGetICValues(self)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XIMOfIC(arg0 XIC) XIM
+
+pub fn xim_of_ic(arg0 XIC) XIM {
+	return C.XIMOfIC(arg0)
+}
+
+fn C.XFilterEvent(arg0 &XEvent, arg1 Window) int
+
+pub fn xf_ilter_event(arg0 &XEvent, arg1 Window) int {
+	return C.XFilterEvent(arg0, arg1)
+}
+
+fn C.XmbLookupString(arg0 XIC, arg1 &XKeyPressedEvent, arg2 &char, arg3 int, arg4 &KeySym, arg5 &int) int
+
+pub fn xmb_lookup_string(arg0 XIC, arg1 &XKeyPressedEvent, arg2 &char, arg3 int, arg4 &KeySym, arg5 &int) int {
+	return C.XmbLookupString(arg0, arg1, arg2, arg3, arg4, arg5)
+}
+
+fn C.XwcLookupString(arg0 XIC, arg1 &XKeyPressedEvent, arg2 &Wchar_t, arg3 int, arg4 &KeySym, arg5 &int) int
+
+pub fn xwc_lookup_string(arg0 XIC, arg1 &XKeyPressedEvent, arg2 &Wchar_t, arg3 int, arg4 &KeySym, arg5 &int) int {
+	return C.XwcLookupString(arg0, arg1, arg2, arg3, arg4, arg5)
+}
+
+fn C.Xutf8LookupString(arg0 XIC, arg1 &XKeyPressedEvent, arg2 &char, arg3 int, arg4 &KeySym, arg5 &int) int
+
+pub fn xutf8_lookup_string(arg0 XIC, arg1 &XKeyPressedEvent, arg2 &char, arg3 int, arg4 &KeySym, arg5 &int) int {
+	return C.Xutf8LookupString(arg0, arg1, arg2, arg3, arg4, arg5)
+}
+
+@[c2v_variadic]
+fn C.XVaCreateNestedList(arg0 int) XVaNestedList
+
+pub fn xv_a_create_nested_list(arg0 int) XVaNestedList {
+	return C.XVaCreateNestedList(arg0)
+}
+
+fn C.XRegisterIMInstantiateCallback(arg0 &Display, arg1 &C.XrmHashBucketRec, arg2 &char, arg3 &char, arg4 XIDProc, arg5 XPointer) int
+
+pub fn xr_egister_im_instantiate_callback(arg0 &Display, arg1 &C.XrmHashBucketRec, arg2 &char, arg3 &char, arg4 XIDProc, arg5 XPointer) int {
+	return C.XRegisterIMInstantiateCallback(arg0, arg1, arg2, arg3, arg4, arg5)
+}
+
+fn C.XUnregisterIMInstantiateCallback(arg0 &Display, arg1 &C.XrmHashBucketRec, arg2 &char, arg3 &char, arg4 XIDProc, arg5 XPointer) int
+
+pub fn xu_nregister_im_instantiate_callback(arg0 &Display, arg1 &C.XrmHashBucketRec, arg2 &char, arg3 &char, arg4 XIDProc, arg5 XPointer) int {
+	return C.XUnregisterIMInstantiateCallback(arg0, arg1, arg2, arg3, arg4, arg5)
+}
+
+type XConnectionWatchProc = fn (&Display, XPointer, i32, i32, &XPointer)
+
+fn C.XInternalConnectionNumbers(arg0 &Display, arg1 &&int, arg2 &int) int
+
+pub fn xi_nternal_connection_numbers(arg0 &Display, arg1 &&int, arg2 &int) int {
+	return C.XInternalConnectionNumbers(arg0, arg1, arg2)
+}
+
+fn C.XProcessInternalConnection(arg0 &Display, arg1 int)
+
+pub fn xp_rocess_internal_connection(arg0 &Display, arg1 int) {
+	C.XProcessInternalConnection(arg0, arg1)
+}
+
+fn C.XAddConnectionWatch(arg0 &Display, arg1 XConnectionWatchProc, arg2 XPointer) i32
+
+pub fn xa_dd_connection_watch(arg0 &Display, arg1 XConnectionWatchProc, arg2 XPointer) i32 {
+	return C.XAddConnectionWatch(arg0, arg1, arg2)
+}
+
+fn C.XRemoveConnectionWatch(arg0 &Display, arg1 XConnectionWatchProc, arg2 XPointer)
+
+pub fn xr_emove_connection_watch(arg0 &Display, arg1 XConnectionWatchProc, arg2 XPointer) {
+	C.XRemoveConnectionWatch(arg0, arg1, arg2)
+}
+
+fn C.XSetAuthorization(arg0 &char, arg1 int, arg2 &char, arg3 int)
+
+pub fn xs_et_authorization(arg0 &char, arg1 int, arg2 &char, arg3 int) {
+	C.XSetAuthorization(arg0, arg1, arg2, arg3)
+}
+
+fn C._Xmbtowc(arg0 &Wchar_t, arg1 &char, arg2 int) int
+
+pub fn xmbtowc(arg0 &Wchar_t, arg1 &char, arg2 int) int {
+	return C._Xmbtowc(arg0, arg1, arg2)
+}
+
+fn C._Xwctomb(arg0 &char, arg1 Wchar_t) int
+
+pub fn xwctomb(arg0 &char, arg1 Wchar_t) int {
+	return C._Xwctomb(arg0, arg1)
+}
+
+fn C.XGetEventData(arg0 &Display, arg1 &XGenericEventCookie) int
+
+pub fn xg_et_event_data(arg0 &Display, arg1 &XGenericEventCookie) int {
+	return C.XGetEventData(arg0, arg1)
+}
+
+fn C.XFreeEventData(arg0 &Display, arg1 &XGenericEventCookie)
+
+pub fn xf_ree_event_data(arg0 &Display, arg1 &XGenericEventCookie) {
+	C.XFreeEventData(arg0, arg1)
+}
+
+struct XSizeHints {
+	flags       int
+	x           int
+	y           int
+	width       int
+	height      int
+	min_width   int
+	min_height  int
+	max_width   int
+	max_height  int
+	width_inc   int
+	height_inc  int
+	min_aspect  struct {
+		x int
+		y int
+	}
+	max_aspect  struct {
+		x int
+		y int
+	}
+	base_width  int
+	base_height int
+	win_gravity int
+}
+
+struct XWMHints {
+	flags         int
+	input         int
+	initial_state int
+	icon_pixmap   Pixmap
+	icon_window   Window
+	icon_x        int
+	icon_y        int
+	icon_mask     Pixmap
+	window_group  XID
+}
+
+struct XTextProperty {
+	value    &u8
+	encoding Atom
+	format   int
+	nitems   u32
+}
+
+enum XICCEncodingStyle {
+	xs_tring_style
+	xc_ompound_text_style
+	xt_ext_style
+	xs_td_icc_text_style
+	xutf8_string_style
+}
+
+struct XIconSize {
+	min_width  int
+	min_height int
+	max_width  int
+	max_height int
+	width_inc  int
+	height_inc int
+}
+
+struct XClassHint {
+	res_name  &char
+	res_class &char
+}
+
+struct XComposeStatus {
+	compose_ptr   XPointer
+	chars_matched int
+}
+
+type Region = voidptr
+
+struct XVisualInfo {
+	visual        &Visual
+	visualid      VisualID
+	screen        int
+	depth         int
+	class         int
+	red_mask      u32
+	green_mask    u32
+	blue_mask     u32
+	colormap_size int
+	bits_per_rgb  int
+}
+
+struct XStandardColormap {
+	colormap   Colormap
+	red_max    u32
+	red_mult   u32
+	green_max  u32
+	green_mult u32
+	blue_max   u32
+	blue_mult  u32
+	base_pixel u32
+	visualid   VisualID
+	killid     XID
+}
+
+type XContext = int
+
+fn C.XAllocClassHint() &XClassHint
+
+pub fn xa_lloc_class_hint() &XClassHint {
+	return C.XAllocClassHint()
+}
+
+fn C.XAllocIconSize() &XIconSize
+
+pub fn xa_lloc_icon_size() &XIconSize {
+	return C.XAllocIconSize()
+}
+
+fn C.XAllocSizeHints() &XSizeHints
+
+pub fn xa_lloc_size_hints() &XSizeHints {
+	return C.XAllocSizeHints()
+}
+
+fn C.XAllocStandardColormap() &XStandardColormap
+
+pub fn xa_lloc_standard_colormap() &XStandardColormap {
+	return C.XAllocStandardColormap()
+}
+
+fn C.XAllocWMHints() &XWMHints
+
+pub fn xa_lloc_wm_hints() &XWMHints {
+	return C.XAllocWMHints()
+}
+
+fn C.XClipBox(arg0 Region, arg1 &XRectangle) int
+
+pub fn xc_lip_box(arg0 Region, arg1 &XRectangle) int {
+	return C.XClipBox(arg0, arg1)
+}
+
+fn C.XCreateRegion() Region
+
+pub fn xc_reate_region() Region {
+	return C.XCreateRegion()
+}
+
+fn C.XDefaultString() &char
+
+pub fn xd_efault_string() &char {
+	return C.XDefaultString()
+}
+
+fn C.XDeleteContext(arg0 &Display, arg1 XID, arg2 XContext) int
+
+pub fn xd_elete_context(arg0 &Display, arg1 XID, arg2 XContext) int {
+	return C.XDeleteContext(arg0, arg1, arg2)
+}
+
+fn C.XDestroyRegion(arg0 Region) int
+
+pub fn xd_estroy_region(arg0 Region) int {
+	return C.XDestroyRegion(arg0)
+}
+
+fn C.XEmptyRegion(arg0 Region) int
+
+pub fn xe_mpty_region(arg0 Region) int {
+	return C.XEmptyRegion(arg0)
+}
+
+fn C.XEqualRegion(arg0 Region, arg1 Region) int
+
+pub fn xe_qual_region(arg0 Region, arg1 Region) int {
+	return C.XEqualRegion(arg0, arg1)
+}
+
+fn C.XFindContext(arg0 &Display, arg1 XID, arg2 XContext, arg3 &XPointer) int
+
+pub fn xf_ind_context(arg0 &Display, arg1 XID, arg2 XContext, arg3 &XPointer) int {
+	return C.XFindContext(arg0, arg1, arg2, arg3)
+}
+
+fn C.XGetClassHint(arg0 &Display, arg1 Window, arg2 &XClassHint) int
+
+pub fn xg_et_class_hint(arg0 &Display, arg1 Window, arg2 &XClassHint) int {
+	return C.XGetClassHint(arg0, arg1, arg2)
+}
+
+fn C.XGetIconSizes(arg0 &Display, arg1 Window, arg2 &&XIconSize, arg3 &int) int
+
+pub fn xg_et_icon_sizes(arg0 &Display, arg1 Window, arg2 &&XIconSize, arg3 &int) int {
+	return C.XGetIconSizes(arg0, arg1, arg2, arg3)
+}
+
+fn C.XGetNormalHints(arg0 &Display, arg1 Window, arg2 &XSizeHints) int
+
+pub fn xg_et_normal_hints(arg0 &Display, arg1 Window, arg2 &XSizeHints) int {
+	return C.XGetNormalHints(arg0, arg1, arg2)
+}
+
+fn C.XGetRGBColormaps(arg0 &Display, arg1 Window, arg2 &&XStandardColormap, arg3 &int, arg4 Atom) int
+
+pub fn xg_et_rgb_colormaps(arg0 &Display, arg1 Window, arg2 &&XStandardColormap, arg3 &int, arg4 Atom) int {
+	return C.XGetRGBColormaps(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XGetSizeHints(arg0 &Display, arg1 Window, arg2 &XSizeHints, arg3 Atom) int
+
+pub fn xg_et_size_hints(arg0 &Display, arg1 Window, arg2 &XSizeHints, arg3 Atom) int {
+	return C.XGetSizeHints(arg0, arg1, arg2, arg3)
+}
+
+fn C.XGetStandardColormap(arg0 &Display, arg1 Window, arg2 &XStandardColormap, arg3 Atom) int
+
+pub fn xg_et_standard_colormap(arg0 &Display, arg1 Window, arg2 &XStandardColormap, arg3 Atom) int {
+	return C.XGetStandardColormap(arg0, arg1, arg2, arg3)
+}
+
+fn C.XGetTextProperty(arg0 &Display, arg1 Window, arg2 &XTextProperty, arg3 Atom) int
+
+pub fn xg_et_text_property(arg0 &Display, arg1 Window, arg2 &XTextProperty, arg3 Atom) int {
+	return C.XGetTextProperty(arg0, arg1, arg2, arg3)
+}
+
+fn C.XGetVisualInfo(arg0 &Display, arg1 int, arg2 &XVisualInfo, arg3 &int) &XVisualInfo
+
+pub fn (display &Display) xg_et_visual_info(arg1 int, arg2 &XVisualInfo, arg3 &int) ?&XVisualInfo {
+	res :=  C.XGetVisualInfo(display, arg1, arg2, arg3)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XGetWMClientMachine(arg0 &Display, arg1 Window, arg2 &XTextProperty) int
+
+pub fn xg_et_wm_client_machine(arg0 &Display, arg1 Window, arg2 &XTextProperty) int {
+	return C.XGetWMClientMachine(arg0, arg1, arg2)
+}
+
+fn C.XGetWMHints(arg0 &Display, arg1 Window) &XWMHints
+
+pub fn (display &Display) xg_et_wm_hints(arg1 Window) ?&XWMHints {
+	res :=  C.XGetWMHints(display, arg1)
+	return if res == unsafe { nil } { none } else { res }
+}
+
+fn C.XGetWMIconName(arg0 &Display, arg1 Window, arg2 &XTextProperty) int
+
+pub fn xg_et_wm_icon_name(arg0 &Display, arg1 Window, arg2 &XTextProperty) int {
+	return C.XGetWMIconName(arg0, arg1, arg2)
+}
+
+fn C.XGetWMName(arg0 &Display, arg1 Window, arg2 &XTextProperty) int
+
+pub fn xg_et_wm_name(arg0 &Display, arg1 Window, arg2 &XTextProperty) int {
+	return C.XGetWMName(arg0, arg1, arg2)
+}
+
+fn C.XGetWMNormalHints(arg0 &Display, arg1 Window, arg2 &XSizeHints, arg3 &int) int
+
+pub fn xg_et_wm_normal_hints(arg0 &Display, arg1 Window, arg2 &XSizeHints, arg3 &int) int {
+	return C.XGetWMNormalHints(arg0, arg1, arg2, arg3)
+}
+
+fn C.XGetWMSizeHints(arg0 &Display, arg1 Window, arg2 &XSizeHints, arg3 &int, arg4 Atom) int
+
+pub fn xg_et_wm_size_hints(arg0 &Display, arg1 Window, arg2 &XSizeHints, arg3 &int, arg4 Atom) int {
+	return C.XGetWMSizeHints(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XGetZoomHints(arg0 &Display, arg1 Window, arg2 &XSizeHints) int
+
+pub fn xg_et_zoom_hints(arg0 &Display, arg1 Window, arg2 &XSizeHints) int {
+	return C.XGetZoomHints(arg0, arg1, arg2)
+}
+
+fn C.XIntersectRegion(arg0 Region, arg1 Region, arg2 Region) int
+
+pub fn xi_ntersect_region(arg0 Region, arg1 Region, arg2 Region) int {
+	return C.XIntersectRegion(arg0, arg1, arg2)
+}
+
+fn C.XConvertCase(arg0 KeySym, arg1 &KeySym, arg2 &KeySym)
+
+pub fn xc_onvert_case(arg0 KeySym, arg1 &KeySym, arg2 &KeySym) {
+	C.XConvertCase(arg0, arg1, arg2)
+}
+
+fn C.XLookupString(arg0 &XKeyEvent, arg1 &char, arg2 int, arg3 &KeySym, arg4 &XComposeStatus) int
+
+pub fn xl_ookup_string(arg0 &XKeyEvent, arg1 &char, arg2 int, arg3 &KeySym, arg4 &XComposeStatus) int {
+	return C.XLookupString(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XMatchVisualInfo(arg0 &Display, arg1 int, arg2 int, arg3 int, arg4 &XVisualInfo) int
+
+pub fn xm_atch_visual_info(arg0 &Display, arg1 int, arg2 int, arg3 int, arg4 &XVisualInfo) int {
+	return C.XMatchVisualInfo(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XOffsetRegion(arg0 Region, arg1 int, arg2 int) int
+
+pub fn xo_ffset_region(arg0 Region, arg1 int, arg2 int) int {
+	return C.XOffsetRegion(arg0, arg1, arg2)
+}
+
+fn C.XPointInRegion(arg0 Region, arg1 int, arg2 int) int
+
+pub fn xp_oint_in_region(arg0 Region, arg1 int, arg2 int) int {
+	return C.XPointInRegion(arg0, arg1, arg2)
+}
+
+fn C.XPolygonRegion(arg0 &XPoint, arg1 int, arg2 int) Region
+
+pub fn xp_olygon_region(arg0 &XPoint, arg1 int, arg2 int) Region {
+	return C.XPolygonRegion(arg0, arg1, arg2)
+}
+
+fn C.XRectInRegion(arg0 Region, arg1 int, arg2 int, arg3 u32, arg4 u32) int
+
+pub fn xr_ect_in_region(arg0 Region, arg1 int, arg2 int, arg3 u32, arg4 u32) int {
+	return C.XRectInRegion(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XSaveContext(arg0 &Display, arg1 XID, arg2 XContext, arg3 &char) int
+
+pub fn xs_ave_context(arg0 &Display, arg1 XID, arg2 XContext, arg3 &char) int {
+	return C.XSaveContext(arg0, arg1, arg2, arg3)
+}
+
+fn C.XSetClassHint(arg0 &Display, arg1 Window, arg2 &XClassHint) int
+
+pub fn xs_et_class_hint(arg0 &Display, arg1 Window, arg2 &XClassHint) int {
+	return C.XSetClassHint(arg0, arg1, arg2)
+}
+
+fn C.XSetIconSizes(arg0 &Display, arg1 Window, arg2 &XIconSize, arg3 int) int
+
+pub fn xs_et_icon_sizes(arg0 &Display, arg1 Window, arg2 &XIconSize, arg3 int) int {
+	return C.XSetIconSizes(arg0, arg1, arg2, arg3)
+}
+
+fn C.XSetNormalHints(arg0 &Display, arg1 Window, arg2 &XSizeHints) int
+
+pub fn xs_et_normal_hints(arg0 &Display, arg1 Window, arg2 &XSizeHints) int {
+	return C.XSetNormalHints(arg0, arg1, arg2)
+}
+
+fn C.XSetRGBColormaps(arg0 &Display, arg1 Window, arg2 &XStandardColormap, arg3 int, arg4 Atom)
+
+pub fn xs_et_rgb_colormaps(arg0 &Display, arg1 Window, arg2 &XStandardColormap, arg3 int, arg4 Atom) {
+	C.XSetRGBColormaps(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XSetSizeHints(arg0 &Display, arg1 Window, arg2 &XSizeHints, arg3 Atom) int
+
+pub fn xs_et_size_hints(arg0 &Display, arg1 Window, arg2 &XSizeHints, arg3 Atom) int {
+	return C.XSetSizeHints(arg0, arg1, arg2, arg3)
+}
+
+fn C.XSetStandardProperties(arg0 &Display, arg1 Window, arg2 &char, arg3 &char, arg4 Pixmap, arg5 &&u8, arg6 int, arg7 &XSizeHints) int
+
+pub fn xs_et_standard_properties(arg0 &Display, arg1 Window, arg2 &char, arg3 &char, arg4 Pixmap, arg5 &&u8, arg6 int, arg7 &XSizeHints) int {
+	return C.XSetStandardProperties(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7)
+}
+
+fn C.XSetTextProperty(arg0 &Display, arg1 Window, arg2 &XTextProperty, arg3 Atom)
+
+pub fn xs_et_text_property(arg0 &Display, arg1 Window, arg2 &XTextProperty, arg3 Atom) {
+	C.XSetTextProperty(arg0, arg1, arg2, arg3)
+}
+
+fn C.XSetWMClientMachine(arg0 &Display, arg1 Window, arg2 &XTextProperty)
+
+pub fn xs_et_wm_client_machine(arg0 &Display, arg1 Window, arg2 &XTextProperty) {
+	C.XSetWMClientMachine(arg0, arg1, arg2)
+}
+
+fn C.XSetWMHints(arg0 &Display, arg1 Window, arg2 &XWMHints) int
+
+pub fn xs_et_wm_hints(arg0 &Display, arg1 Window, arg2 &XWMHints) int {
+	return C.XSetWMHints(arg0, arg1, arg2)
+}
+
+fn C.XSetWMIconName(arg0 &Display, arg1 Window, arg2 &XTextProperty)
+
+pub fn xs_et_wm_icon_name(arg0 &Display, arg1 Window, arg2 &XTextProperty) {
+	C.XSetWMIconName(arg0, arg1, arg2)
+}
+
+fn C.XSetWMName(arg0 &Display, arg1 Window, arg2 &XTextProperty)
+
+pub fn xs_et_wm_name(arg0 &Display, arg1 Window, arg2 &XTextProperty) {
+	C.XSetWMName(arg0, arg1, arg2)
+}
+
+fn C.XSetWMNormalHints(arg0 &Display, arg1 Window, arg2 &XSizeHints)
+
+pub fn xs_et_wm_normal_hints(arg0 &Display, arg1 Window, arg2 &XSizeHints) {
+	C.XSetWMNormalHints(arg0, arg1, arg2)
+}
+
+fn C.XSetWMProperties(arg0 &Display, arg1 Window, arg2 &XTextProperty, arg3 &XTextProperty, arg4 &&u8, arg5 int, arg6 &XSizeHints, arg7 &XWMHints, arg8 &XClassHint)
+
+pub fn xs_et_wm_properties(arg0 &Display, arg1 Window, arg2 &XTextProperty, arg3 &XTextProperty, arg4 &&u8, arg5 int, arg6 &XSizeHints, arg7 &XWMHints, arg8 &XClassHint) {
+	C.XSetWMProperties(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+}
+
+fn C.XmbSetWMProperties(arg0 &Display, arg1 Window, arg2 &char, arg3 &char, arg4 &&u8, arg5 int, arg6 &XSizeHints, arg7 &XWMHints, arg8 &XClassHint)
+
+pub fn xmb_set_wm_properties(arg0 &Display, arg1 Window, arg2 &char, arg3 &char, arg4 &&u8, arg5 int, arg6 &XSizeHints, arg7 &XWMHints, arg8 &XClassHint) {
+	C.XmbSetWMProperties(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+}
+
+fn C.Xutf8SetWMProperties(arg0 &Display, arg1 Window, arg2 &char, arg3 &char, arg4 &&u8, arg5 int, arg6 &XSizeHints, arg7 &XWMHints, arg8 &XClassHint)
+
+pub fn xutf8_set_wm_properties(arg0 &Display, arg1 Window, arg2 &char, arg3 &char, arg4 &&u8, arg5 int, arg6 &XSizeHints, arg7 &XWMHints, arg8 &XClassHint) {
+	C.Xutf8SetWMProperties(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)
+}
+
+fn C.XSetWMSizeHints(arg0 &Display, arg1 Window, arg2 &XSizeHints, arg3 Atom)
+
+pub fn xs_et_wm_size_hints(arg0 &Display, arg1 Window, arg2 &XSizeHints, arg3 Atom) {
+	C.XSetWMSizeHints(arg0, arg1, arg2, arg3)
+}
+
+fn C.XSetRegion(arg0 &Display, arg1 GC, arg2 Region) int
+
+pub fn xs_et_region(arg0 &Display, arg1 GC, arg2 Region) int {
+	return C.XSetRegion(arg0, arg1, arg2)
+}
+
+fn C.XSetStandardColormap(arg0 &Display, arg1 Window, arg2 &XStandardColormap, arg3 Atom)
+
+pub fn xs_et_standard_colormap(arg0 &Display, arg1 Window, arg2 &XStandardColormap, arg3 Atom) {
+	C.XSetStandardColormap(arg0, arg1, arg2, arg3)
+}
+
+fn C.XSetZoomHints(arg0 &Display, arg1 Window, arg2 &XSizeHints) int
+
+pub fn xs_et_zoom_hints(arg0 &Display, arg1 Window, arg2 &XSizeHints) int {
+	return C.XSetZoomHints(arg0, arg1, arg2)
+}
+
+fn C.XShrinkRegion(arg0 Region, arg1 int, arg2 int) int
+
+pub fn xs_hrink_region(arg0 Region, arg1 int, arg2 int) int {
+	return C.XShrinkRegion(arg0, arg1, arg2)
+}
+
+fn C.XStringListToTextProperty(arg0 &&u8, arg1 int, arg2 &XTextProperty) int
+
+pub fn xs_tring_list_to_text_property(arg0 &&u8, arg1 int, arg2 &XTextProperty) int {
+	return C.XStringListToTextProperty(arg0, arg1, arg2)
+}
+
+fn C.XSubtractRegion(arg0 Region, arg1 Region, arg2 Region) int
+
+pub fn xs_ubtract_region(arg0 Region, arg1 Region, arg2 Region) int {
+	return C.XSubtractRegion(arg0, arg1, arg2)
+}
+
+fn C.XmbTextListToTextProperty(arg0 &Display, arg1 &&u8, arg2 int, arg3 XICCEncodingStyle, arg4 &XTextProperty) int
+
+pub fn xmb_text_list_to_text_property(arg0 &Display, arg1 &&u8, arg2 int, arg3 XICCEncodingStyle, arg4 &XTextProperty) int {
+	return C.XmbTextListToTextProperty(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XwcTextListToTextProperty(arg0 &Display, arg1 &&Wchar_t, arg2 int, arg3 XICCEncodingStyle, arg4 &XTextProperty) int
+
+pub fn xwc_text_list_to_text_property(arg0 &Display, arg1 &&Wchar_t, arg2 int, arg3 XICCEncodingStyle, arg4 &XTextProperty) int {
+	return C.XwcTextListToTextProperty(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.Xutf8TextListToTextProperty(arg0 &Display, arg1 &&u8, arg2 int, arg3 XICCEncodingStyle, arg4 &XTextProperty) int
+
+pub fn xutf8_text_list_to_text_property(arg0 &Display, arg1 &&u8, arg2 int, arg3 XICCEncodingStyle, arg4 &XTextProperty) int {
+	return C.Xutf8TextListToTextProperty(arg0, arg1, arg2, arg3, arg4)
+}
+
+fn C.XwcFreeStringList(arg0 &&Wchar_t)
+
+pub fn xwc_free_string_list(arg0 &&Wchar_t) {
+	C.XwcFreeStringList(arg0)
+}
+
+fn C.XTextPropertyToStringList(arg0 &XTextProperty, arg1 &&&char, arg2 &int) int
+
+pub fn xt_ext_property_to_string_list(arg0 &XTextProperty, arg1 &&&char, arg2 &int) int {
+	return C.XTextPropertyToStringList(arg0, arg1, arg2)
+}
+
+fn C.XmbTextPropertyToTextList(arg0 &Display, arg1 &XTextProperty, arg2 &&&char, arg3 &int) int
+
+pub fn xmb_text_property_to_text_list(arg0 &Display, arg1 &XTextProperty, arg2 &&&char, arg3 &int) int {
+	return C.XmbTextPropertyToTextList(arg0, arg1, arg2, arg3)
+}
+
+fn C.XwcTextPropertyToTextList(arg0 &Display, arg1 &XTextProperty, arg2 &&&Wchar_t, arg3 &int) int
+
+pub fn xwc_text_property_to_text_list(arg0 &Display, arg1 &XTextProperty, arg2 &&&Wchar_t, arg3 &int) int {
+	return C.XwcTextPropertyToTextList(arg0, arg1, arg2, arg3)
+}
+
+fn C.Xutf8TextPropertyToTextList(arg0 &Display, arg1 &XTextProperty, arg2 &&&char, arg3 &int) int
+
+pub fn xutf8_text_property_to_text_list(arg0 &Display, arg1 &XTextProperty, arg2 &&&char, arg3 &int) int {
+	return C.Xutf8TextPropertyToTextList(arg0, arg1, arg2, arg3)
+}
+
+fn C.XUnionRectWithRegion(arg0 &XRectangle, arg1 Region, arg2 Region) int
+
+pub fn xu_nion_rect_with_region(arg0 &XRectangle, arg1 Region, arg2 Region) int {
+	return C.XUnionRectWithRegion(arg0, arg1, arg2)
+}
+
+fn C.XUnionRegion(arg0 Region, arg1 Region, arg2 Region) int
+
+pub fn xu_nion_region(arg0 Region, arg1 Region, arg2 Region) int {
+	return C.XUnionRegion(arg0, arg1, arg2)
+}
+
+fn C.XWMGeometry(arg0 &Display, arg1 int, arg2 &char, arg3 &char, arg4 u32, arg5 &XSizeHints, arg6 &int, arg7 &int, arg8 &int, arg9 &int, arg10 &int) int
+
+pub fn xwm_geometry(arg0 &Display, arg1 int, arg2 &char, arg3 &char, arg4 u32, arg5 &XSizeHints, arg6 &int, arg7 &int, arg8 &int, arg9 &int, arg10 &int) int {
+	return C.XWMGeometry(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)
+}
+
+fn C.XXorRegion(arg0 Region, arg1 Region, arg2 Region) int
+
+pub fn xx_or_region(arg0 Region, arg1 Region, arg2 Region) int {
+	return C.XXorRegion(arg0, arg1, arg2)
+}
